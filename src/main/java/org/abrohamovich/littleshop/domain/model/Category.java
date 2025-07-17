@@ -14,9 +14,9 @@ import java.util.List;
 @ToString
 public class Category {
     private final Long id;
+    private final LocalDateTime createdAt;
     private String name;
     private String description;
-    private final LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
     private Category(Long id, String name, String description, LocalDateTime createdAt, LocalDateTime updatedAt) {
@@ -29,7 +29,7 @@ public class Category {
         validateSelf();
     }
 
-    public static Category createNewCategory(String name, String description) {
+    public static Category createNew(String name, String description) {
         return new Category(null, name, description, LocalDateTime.now(), LocalDateTime.now());
     }
 
@@ -37,7 +37,7 @@ public class Category {
         if (id == null) {
             throw new IllegalArgumentException("ID cannot be null for existing category");
         }
-        return new Category(id, name, description,  createdAt, updatedAt);
+        return new Category(id, name, description, createdAt, updatedAt);
     }
 
     public void updateDetails(String name, String description) {

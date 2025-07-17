@@ -15,13 +15,13 @@ import java.util.List;
 @ToString
 public class User {
     private final Long id;
+    private final LocalDateTime createdAt;
     private String firstName;
     private String lastName;
     private String email;
     private String password;
     private UserRole role;
     private String phone;
-    private final LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
     private User(Long id, String firstName, String lastName, String email, String hashedPassword,

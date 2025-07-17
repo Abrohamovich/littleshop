@@ -16,7 +16,7 @@ public class UpdateCategoryService implements UpdateCategoryUseCase {
     @Override
     public CategoryResponse update(Long id, CategoryUpdateCommand command) {
         Category existingCategory = categoryRepositoryPort.findById(id)
-                .orElseThrow(() -> new CategoryNotFoundException("Category with ID " + id + " not found for update."));
+                .orElseThrow(() -> new CategoryNotFoundException("Category with ID '" + id + "' not found for update."));
 
         if (!existingCategory.getName().equals(command.getName())) {
             if (categoryRepositoryPort.findByName(command.getName()).isPresent()) {

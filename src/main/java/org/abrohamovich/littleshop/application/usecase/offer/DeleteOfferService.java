@@ -12,7 +12,7 @@ public class DeleteOfferService implements DeleteOfferUseCase {
     @Override
     public void deleteById(Long id) {
         if (offerRepositoryPort.findById(id).isEmpty()) {
-            throw new OfferNotFoundException("Offer with ID " + id + " not found for deletion.");
+            throw new OfferNotFoundException("Offer with ID '" + id + "' not found for deletion.");
         }
 
         offerRepositoryPort.deleteById(id);

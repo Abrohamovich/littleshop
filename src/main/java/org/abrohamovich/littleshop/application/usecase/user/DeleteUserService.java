@@ -12,7 +12,7 @@ public class DeleteUserService implements DeleteUserUseCase {
     @Override
     public void deleteById(Long id) {
         if (userRepositoryPort.findById(id).isEmpty()) {
-            throw new UserNotFoundException("User with ID " + id + " not found for deletion.");
+            throw new UserNotFoundException("User with ID '" + id + "' not found for deletion.");
         }
 
         userRepositoryPort.deleteById(id);

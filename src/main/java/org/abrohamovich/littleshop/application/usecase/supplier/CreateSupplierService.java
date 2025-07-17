@@ -15,13 +15,13 @@ public class CreateSupplierService implements CreateSupplierUseCase {
     @Override
     public SupplierResponse save(SupplierCreateCommand command) {
         if (supplierRepositoryPort.findByEmail(command.getEmail()).isPresent()) {
-            throw new DuplicateEntryException("Customer with email " + command.getEmail() + " already exists");
+            throw new DuplicateEntryException("Customer with email '" + command.getEmail() + "' already exists.");
         }
         if (supplierRepositoryPort.findByName(command.getName()).isPresent()) {
-            throw new DuplicateEntryException("Customer with name " + command.getEmail() + " already exists");
+            throw new DuplicateEntryException("Customer with name '" + command.getEmail() + "' already exists.");
         }
         if (supplierRepositoryPort.findByPhone(command.getPhone()).isPresent()) {
-            throw new DuplicateEntryException("Customer with phone " + command.getEmail() + " already exists");
+            throw new DuplicateEntryException("Customer with phone '" + command.getEmail() + "' already exists.");
         }
 
         Supplier supplier = Supplier.createNew(command.getName(), command.getEmail(),

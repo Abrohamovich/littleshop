@@ -4,7 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 import org.abrohamovich.littleshop.domain.exception.order.OrderValidationException;
-import org.abrohamovich.littleshop.domain.exception.orderItem.OrderItemValidationException;
+import org.abrohamovich.littleshop.domain.exception.orderItem.OrderItemNotFoundException;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -17,11 +17,11 @@ import java.util.Objects;
 @ToString
 public class Order {
     private final Long id;
+    private final List<OrderItem> items;
+    private final LocalDateTime createdAt;
     private Customer customer;
     private User user;
     private OrderStatus status;
-    private final List<OrderItem> items;
-    private final LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
     public Order(Long id, Customer customer, User user, OrderStatus status,
@@ -70,7 +70,7 @@ public class Order {
         OrderItem itemToUpdate = this.items.stream()
                 .filter(item -> Objects.equals(item.getId(), orderItemId))
                 .findFirst()
-                .orElseThrow(() -> new OrderItemValidationException("Order item with ID " + orderItemId + " not found in this order."));
+                .orElseThrow(() -> new OrderItemNotFoundException("Order item with ID " + orderItemId + " not found in this order."));
 
         itemToUpdate.updateQuantity(newQuantity);
         this.updatedAt = LocalDateTime.now();
@@ -80,7 +80,7 @@ public class Order {
     public void removeOrderItem(Long orderItemId) {
         boolean removed = this.items.removeIf(item -> Objects.equals(item.getId(), orderItemId));
         if (!removed) {
-            throw new OrderItemValidationException("Order item with ID " + orderItemId + " not found in this order to remove.");
+            throw new OrderItemNotFoundException("Order item with ID " + orderItemId + " not found in this order to remove.");
         }
         this.updatedAt = LocalDateTime.now();
         validateSelf();

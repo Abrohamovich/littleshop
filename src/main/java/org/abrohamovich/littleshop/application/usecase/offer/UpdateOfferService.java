@@ -24,7 +24,7 @@ public class UpdateOfferService implements UpdateOfferUseCase {
     @Override
     public OfferResponse update(Long id, OfferUpdateCommand command) {
         Offer existingOffer = offerRepositoryPort.findById(id)
-                .orElseThrow(() -> new OfferNotFoundException("Offer with ID " + id + " not found for update."));
+                .orElseThrow(() -> new OfferNotFoundException("Offer with ID '" + id + "' not found for update."));
 
         if (!existingOffer.getName().equals(command.getName())) {
             if (offerRepositoryPort.findByName(command.getName()).isPresent()) {
@@ -33,10 +33,10 @@ public class UpdateOfferService implements UpdateOfferUseCase {
         }
 
         Category category = categoryRepositoryPort.findById(command.getCategoryId())
-                .orElseThrow(() -> new CategoryNotFoundException("Category with ID " + command.getCategoryId() + " does not exist"));
+                .orElseThrow(() -> new CategoryNotFoundException("Category with ID '" + command.getCategoryId() + "' does not exist."));
 
         Supplier supplier = supplierRepositoryPort.findById(command.getSupplierId())
-                .orElseThrow(() -> new SupplierNotFoundException("Supplier with ID " + command.getCategoryId() + " does not exist"));
+                .orElseThrow(() -> new SupplierNotFoundException("Supplier with ID '" + command.getCategoryId() + "' does not exist."));
 
         existingOffer.updateDetails(command.getName(), command.getPrice(), command.getType(),
                 command.getDescription(), category, supplier);

@@ -2,7 +2,6 @@ package org.abrohamovich.littleshop.application.usecase.order;
 
 import lombok.RequiredArgsConstructor;
 import org.abrohamovich.littleshop.application.dto.order.OrderResponse;
-import org.abrohamovich.littleshop.application.dto.order.OrderUpdateCommand;
 import org.abrohamovich.littleshop.application.dto.order.OrderUpdateStatusCommand;
 import org.abrohamovich.littleshop.application.port.in.order.ChangeOrderStatusUseCase;
 import org.abrohamovich.littleshop.application.port.out.persistence.OrderRepositoryPort;
@@ -16,7 +15,7 @@ public class ChangeOrderStatusService implements ChangeOrderStatusUseCase {
     @Override
     public OrderResponse changeStatus(Long orderId, OrderUpdateStatusCommand command) {
         Order order = orderRepositoryPort.findById(orderId)
-                .orElseThrow(() -> new OrderNotFoundException("Order with ID '" + orderId + "' not found"));
+                .orElseThrow(() -> new OrderNotFoundException("Order with ID '" + orderId + "' not found."));
 
         order.changeStatus(command.getStatus());
 

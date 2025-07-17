@@ -15,7 +15,7 @@ public class RemoveOrderItemFromOrderService implements RemoveOrderItemFromOrder
     @Override
     public OrderResponse remove(OrderItemRemoveFromOrderCommand command) {
         Order order = orderRepositoryPort.findById(command.getOrderId())
-                .orElseThrow(() -> new OrderNotFoundException("Order with ID '" + command.getOrderId() + "' not found"));
+                .orElseThrow(() -> new OrderNotFoundException("Order with ID '" + command.getOrderId() + "' not found."));
 
         order.removeOrderItem(command.getOrderItemId());
 

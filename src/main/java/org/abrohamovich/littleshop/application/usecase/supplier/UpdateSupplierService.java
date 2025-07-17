@@ -16,7 +16,7 @@ public class UpdateSupplierService implements UpdateSupplierUseCase {
     @Override
     public SupplierResponse update(Long id, SupplierUpdateCommand command) {
         Supplier existingSupplier = supplierRepositoryPort.findById(id)
-                .orElseThrow(() -> new SupplierNotFoundException("Supplier with ID " + id + " not found for update."));
+                .orElseThrow(() -> new SupplierNotFoundException("Supplier with ID '" + id + "' not found for update."));
 
         if (!existingSupplier.getName().equals(command.getName())) {
             if (supplierRepositoryPort.findByName(command.getName()).isPresent()) {

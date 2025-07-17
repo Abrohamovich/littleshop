@@ -16,7 +16,7 @@ public class GetCategoryService implements GetCategoryUseCase {
     public CategoryResponse findById(Long id) {
         return categoryRepositoryPort.findById(id)
                 .map(CategoryResponse::toResponse)
-                .orElseThrow(() -> new CategoryNotFoundException("Category with ID " + id + " not found."));
+                .orElseThrow(() -> new CategoryNotFoundException("Category with ID '" + id + "' not found."));
     }
 
     @Override

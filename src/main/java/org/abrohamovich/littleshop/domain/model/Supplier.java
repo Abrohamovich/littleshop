@@ -14,12 +14,12 @@ import java.util.List;
 @ToString
 public class Supplier {
     private final Long id;
+    private final LocalDateTime createdAt;
     private String name;
     private String email;
     private String phone;
     private String address;
     private String description;
-    private final LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
     private Supplier(Long id, String name, String email, String phone, String address,

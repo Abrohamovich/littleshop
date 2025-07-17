@@ -22,7 +22,7 @@ public class CustomerResponse {
 
     public static CustomerResponse toResponse(Customer customer) {
         if (customer == null) {
-            throw new IllegalArgumentException("Customer cannot be null to continue the conversion");
+            throw new IllegalArgumentException("Customer cannot be null to continue the conversion.");
         }
         return CustomerResponse.builder()
                 .id(customer.getId())

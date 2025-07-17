@@ -12,7 +12,7 @@ public class DeleteOrderService implements DeleteOrderUseCase {
     @Override
     public void deleteById(Long id) {
         if (orderRepositoryPort.findById(id).isEmpty()) {
-            throw new CustomerNotFoundException("Order with ID " + id + " not found for deletion.");
+            throw new CustomerNotFoundException("Order with ID '" + id + "' not found for deletion.");
         }
 
         orderRepositoryPort.deleteById(id);

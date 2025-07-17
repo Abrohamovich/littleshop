@@ -15,9 +15,9 @@ import java.util.List;
 public class OrderItem {
     private final Long id;
     private final Offer offer;
-    private int quantity;
     private final double priceAtTimeOfOrder;
     private final LocalDateTime createdAt;
+    private int quantity;
     private LocalDateTime updatedAt;
 
     public OrderItem(Long id, Offer offer, int quantity, double priceAtTimeOfOrder,

@@ -23,14 +23,14 @@ public class CreateOfferService implements CreateOfferUseCase {
     @Override
     public OfferResponse save(OfferCreateCommand command) {
         if (offerRepositoryPort.findByName(command.getName()).isPresent()) {
-            throw new DuplicateEntryException("Offer with name " + command.getName() + " already exists");
+            throw new DuplicateEntryException("Offer with name " + command.getName() + " already exists.");
         }
 
         Category category = categoryRepositoryPort.findById(command.getCategoryId())
-                .orElseThrow(() -> new CategoryNotFoundException("Category with ID " + command.getCategoryId() + " does not exist"));
+                .orElseThrow(() -> new CategoryNotFoundException("Category with ID '" + command.getCategoryId() + "' does not exist."));
 
         Supplier supplier = supplierRepositoryPort.findById(command.getSupplierId())
-                .orElseThrow(() -> new SupplierNotFoundException("Supplier with ID " + command.getCategoryId() + " does not exist"));
+                .orElseThrow(() -> new SupplierNotFoundException("Supplier with ID '" + command.getCategoryId() + "' does not exist."));
 
         Offer offer = Offer.createNew(command.getName(), command.getPrice(), command.getType(),
                 command.getDescription(), category, supplier);

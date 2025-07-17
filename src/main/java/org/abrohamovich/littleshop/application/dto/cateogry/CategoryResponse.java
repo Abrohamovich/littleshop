@@ -19,7 +19,7 @@ public class CategoryResponse {
 
     public static CategoryResponse toResponse(Category category) {
         if (category == null) {
-            throw new IllegalArgumentException("Category cannot be null to continue the conversion");
+            throw new IllegalArgumentException("Category cannot be null to continue the conversion.");
         }
         return CategoryResponse.builder()
                 .id(category.getId())

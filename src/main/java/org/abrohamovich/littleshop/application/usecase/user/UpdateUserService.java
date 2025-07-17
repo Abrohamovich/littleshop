@@ -16,7 +16,7 @@ public class UpdateUserService implements UpdateUserUseCase {
     @Override
     public UserResponse update(Long id, UserUpdateCommand command) {
         User existingUser = userRepositoryPort.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("User with ID " + id + " not found for update."));
+                .orElseThrow(() -> new UserNotFoundException("User with ID '" + id + "' not found for update."));
 
         if (!existingUser.getEmail().equals(command.getEmail())) {
             if (userRepositoryPort.findByEmail(command.getEmail()).isPresent()) {

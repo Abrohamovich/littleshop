@@ -10,7 +10,6 @@ import org.abrohamovich.littleshop.domain.exception.offer.OfferNotFoundException
 import org.abrohamovich.littleshop.domain.exception.order.OrderNotFoundException;
 import org.abrohamovich.littleshop.domain.model.Offer;
 import org.abrohamovich.littleshop.domain.model.Order;
-import org.abrohamovich.littleshop.domain.model.OrderItem;
 
 @RequiredArgsConstructor
 public class AddOrderItemToOrderService implements AddOrderItemToOrderUseCase {
@@ -20,9 +19,9 @@ public class AddOrderItemToOrderService implements AddOrderItemToOrderUseCase {
     @Override
     public OrderResponse add(Long orderId, OrderItemAddToOrderCommand command) {
         Order order = orderRepositoryPort.findById(orderId)
-                .orElseThrow(() -> new OrderNotFoundException("Order with ID '" + orderId + "' not found"));
+                .orElseThrow(() -> new OrderNotFoundException("Order with ID '" + orderId + "' not found."));
         Offer offer = offerRepositoryPort.findById(command.getOfferId())
-                .orElseThrow(() -> new OfferNotFoundException("Offer with ID '" + command.getOfferId() + "' not found"));
+                .orElseThrow(() -> new OfferNotFoundException("Offer with ID '" + command.getOfferId() + "' not found."));
 
         order.addOrderItem(offer, command.getQuantity());
 

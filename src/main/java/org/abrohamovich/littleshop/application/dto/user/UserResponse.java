@@ -24,7 +24,7 @@ public class UserResponse {
 
     public static UserResponse toResponse(User user) {
         if (user == null) {
-            throw new  IllegalArgumentException("User cannot be null to continue the conversion");
+            throw new IllegalArgumentException("User cannot be null to continue the conversion.");
         }
         return UserResponse.builder()
                 .id(user.getId())

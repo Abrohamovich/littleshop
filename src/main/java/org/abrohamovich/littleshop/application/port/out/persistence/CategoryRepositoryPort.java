@@ -8,10 +8,16 @@ import java.util.Optional;
 
 public interface CategoryRepositoryPort {
     Category save(Category category);
+
     Optional<Category> findById(Long id);
+
     Optional<Category> findByName(String name);
+
     Page<Category> findAll(Pageable pageable);
+
     Page<Category> findByNameLike(String name, Pageable pageable);
+
     Page<Category> findByDescriptionLike(String description, Pageable pageable);
+
     void deleteById(Long id);
 }

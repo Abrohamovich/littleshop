@@ -12,7 +12,7 @@ public class DeleteSupplierService implements DeleteSupplierUseCase {
     @Override
     public void deleteById(Long id) {
         if (supplierRepositoryPort.findById(id).isEmpty()) {
-            throw new SupplierNotFoundException("Supplier with ID " + id + " not found for deletion.");
+            throw new SupplierNotFoundException("Supplier with ID '" + id + "' not found for deletion.");
         }
 
         supplierRepositoryPort.deleteById(id);

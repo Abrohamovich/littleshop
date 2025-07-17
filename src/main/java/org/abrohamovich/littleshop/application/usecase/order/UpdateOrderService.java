@@ -7,7 +7,6 @@ import org.abrohamovich.littleshop.application.port.in.order.UpdateOrderUseCase;
 import org.abrohamovich.littleshop.application.port.out.persistence.CustomerRepositoryPort;
 import org.abrohamovich.littleshop.application.port.out.persistence.OrderRepositoryPort;
 import org.abrohamovich.littleshop.application.port.out.persistence.UserRepositoryPort;
-import org.abrohamovich.littleshop.domain.exception.DuplicateEntryException;
 import org.abrohamovich.littleshop.domain.exception.customer.CustomerNotFoundException;
 import org.abrohamovich.littleshop.domain.exception.order.OrderNotFoundException;
 import org.abrohamovich.littleshop.domain.exception.user.UserNotFoundException;
@@ -26,9 +25,9 @@ public class UpdateOrderService implements UpdateOrderUseCase {
         Order existingOrder = orderRepositoryPort.findById(orderId)
                 .orElseThrow(() -> new OrderNotFoundException("Order with ID '" + orderId + "' not found for update."));
         Customer customer = customerRepositoryPort.findById(command.getCustomerId())
-                        .orElseThrow(() -> new CustomerNotFoundException("Customer with ID '" + command.getCustomerId() + "' not found"));
+                .orElseThrow(() -> new CustomerNotFoundException("Customer with ID '" + command.getCustomerId() + "' not found."));
         User user = userRepositoryPort.findById(command.getUserId())
-                        .orElseThrow(() -> new UserNotFoundException("User with ID '" + command.getUserId() + "' not found"));
+                .orElseThrow(() -> new UserNotFoundException("User with ID '" + command.getUserId() + "' not found."));
 
         existingOrder.updateDetails(customer, user);
 

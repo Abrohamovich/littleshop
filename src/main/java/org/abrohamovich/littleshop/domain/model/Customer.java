@@ -14,12 +14,12 @@ import java.util.List;
 @ToString
 public class Customer {
     private final Long id;
+    private final LocalDateTime createdAt;
     private String firstName;
     private String lastName;
     private String email;
     private String phone;
     private String address;
-    private final LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
     private Customer(Long id, String firstName, String lastName, String email, String phone, String address,

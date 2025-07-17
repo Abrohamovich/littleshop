@@ -22,7 +22,7 @@ public class SupplierResponse {
 
     public static SupplierResponse toResponse(Supplier supplier) {
         if (supplier == null) {
-            throw new IllegalArgumentException("Supplier cannot be null to continue the conversion");
+            throw new IllegalArgumentException("Supplier cannot be null to continue the conversion.");
         }
         return SupplierResponse.builder()
                 .id(supplier.getId())

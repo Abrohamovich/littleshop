@@ -4,7 +4,8 @@ import lombok.*;
 import org.abrohamovich.littleshop.application.dto.customer.CustomerResponse;
 import org.abrohamovich.littleshop.application.dto.orderItem.OrderItemResponse;
 import org.abrohamovich.littleshop.application.dto.user.UserResponse;
-import org.abrohamovich.littleshop.domain.model.*;
+import org.abrohamovich.littleshop.domain.model.Order;
+import org.abrohamovich.littleshop.domain.model.OrderStatus;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -25,7 +26,7 @@ public class OrderResponse {
 
     public static OrderResponse toResponse(Order order) {
         if (order == null) {
-            throw new IllegalArgumentException("Order cannot be null to continue the conversion");
+            throw new IllegalArgumentException("Order cannot be null to continue the conversion.");
         }
         return OrderResponse.builder()
                 .id(order.getId())

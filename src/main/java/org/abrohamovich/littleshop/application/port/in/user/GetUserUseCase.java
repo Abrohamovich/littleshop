@@ -6,8 +6,12 @@ import org.springframework.data.domain.Pageable;
 
 public interface GetUserUseCase {
     UserResponse findById(Long id);
+
     Page<UserResponse> findAll(Pageable pageable);
+
     Page<UserResponse> findByFirstNameLike(String firstName, Pageable pageable);
+
     Page<UserResponse> findByLastNameLike(String lastName, Pageable pageable);
+
     Page<UserResponse> findByEmailLike(String email, Pageable pageable);
 }

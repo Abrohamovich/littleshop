@@ -15,10 +15,10 @@ public class CreateUserService implements CreateUserUseCase {
     @Override
     public UserResponse save(UserCreateCommand command) {
         if (userRepositoryPort.findByEmail(command.getEmail()).isPresent()) {
-            throw new DuplicateEntryException("User with email " + command.getEmail() + " already exists");
+            throw new DuplicateEntryException("User with email '" + command.getEmail() + "' already exists.");
         }
         if (userRepositoryPort.findByPhone(command.getPhone()).isPresent()) {
-            throw new DuplicateEntryException("User with phone " + command.getPhone() + " already exists");
+            throw new DuplicateEntryException("User with phone '" + command.getPhone() + "' already exists.");
         }
 
         User user = User.createNewUser(command.getFirstName(), command.getLastName(), command.getEmail(),

@@ -15,7 +15,7 @@ public class UpdateOrderItemQuantityService implements UpdateOrderItemQuantityUs
     @Override
     public OrderResponse updateQuantity(OrderItemUpdateQuantityCommand command) {
         Order order = orderRepositoryPort.findById(command.getOrderId())
-                .orElseThrow(() -> new OrderNotFoundException("Order with ID '" + command.getOrderId() + "' not found"));
+                .orElseThrow(() -> new OrderNotFoundException("Order with ID '" + command.getOrderId() + "' not found."));
 
         order.updateOrderItemQuantity(command.getOrderItemId(), command.getNewQuantity());
 

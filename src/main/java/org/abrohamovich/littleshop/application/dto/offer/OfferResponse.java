@@ -3,10 +3,8 @@ package org.abrohamovich.littleshop.application.dto.offer;
 import lombok.*;
 import org.abrohamovich.littleshop.application.dto.cateogry.CategoryResponse;
 import org.abrohamovich.littleshop.application.dto.supplier.SupplierResponse;
-import org.abrohamovich.littleshop.domain.model.Category;
 import org.abrohamovich.littleshop.domain.model.Offer;
 import org.abrohamovich.littleshop.domain.model.OfferType;
-import org.abrohamovich.littleshop.domain.model.Supplier;
 
 import java.time.LocalDateTime;
 
@@ -28,7 +26,7 @@ public class OfferResponse {
 
     public static OfferResponse toResponse(Offer offer) {
         if (offer == null) {
-            throw new IllegalArgumentException("Offer cannot be null to continue the conversion");
+            throw new IllegalArgumentException("Offer cannot be null to continue the conversion.");
         }
         return OfferResponse.builder()
                 .id(offer.getId())

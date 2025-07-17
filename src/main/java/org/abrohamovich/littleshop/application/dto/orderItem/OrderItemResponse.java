@@ -21,7 +21,7 @@ public class OrderItemResponse {
 
     public static OrderItemResponse toResponse(OrderItem orderItem) {
         if (orderItem == null) {
-            throw new IllegalArgumentException("OrderItem cannot be null to continue the conversion");
+            throw new IllegalArgumentException("OrderItem cannot be null to continue the conversion.");
         }
         return OrderItemResponse.builder()
                 .id(orderItem.getId())

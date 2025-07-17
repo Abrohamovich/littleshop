@@ -12,7 +12,7 @@ public class DeleteCategoryService implements DeleteCategoryUseCase {
     @Override
     public void deleteById(Long id) {
         if (categoryRepositoryPort.findById(id).isEmpty()) {
-            throw new CategoryNotFoundException("Category with ID " + id + " not found for deletion.");
+            throw new CategoryNotFoundException("Category with ID '" + id + "' not found for deletion.");
         }
 
         categoryRepositoryPort.deleteById(id);

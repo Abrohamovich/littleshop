@@ -8,7 +8,6 @@ import org.abrohamovich.littleshop.application.port.out.persistence.CustomerRepo
 import org.abrohamovich.littleshop.application.port.out.persistence.OfferRepositoryPort;
 import org.abrohamovich.littleshop.application.port.out.persistence.OrderRepositoryPort;
 import org.abrohamovich.littleshop.application.port.out.persistence.UserRepositoryPort;
-import org.abrohamovich.littleshop.domain.exception.DuplicateEntryException;
 import org.abrohamovich.littleshop.domain.exception.customer.CustomerNotFoundException;
 import org.abrohamovich.littleshop.domain.exception.offer.OfferNotFoundException;
 import org.abrohamovich.littleshop.domain.exception.user.UserNotFoundException;
@@ -26,16 +25,16 @@ public class CreateOrderService implements CreateOrderUseCase {
     @Override
     public OrderResponse save(OrderCreateCommand command) {
         List<OrderItem> items = command.getItems().stream()
-                .map( orderCommand -> {
+                .map(orderCommand -> {
                     Offer offer = offerRepositoryPort.findById(orderCommand.getOfferId())
-                            .orElseThrow(() -> new OfferNotFoundException("Offer with ID '" + orderCommand.getOfferId() + "' not found"));
+                            .orElseThrow(() -> new OfferNotFoundException("Offer with ID '" + orderCommand.getOfferId() + "' not found."));
                     return OrderItem.createNew(offer, orderCommand.getQuantity());
                 }).toList();
 
         Customer customer = customerRepositoryPort.findById(command.getCustomerId())
-                .orElseThrow(() -> new CustomerNotFoundException("Customer with ID '" + command.getCustomerId() + "' not found"));
+                .orElseThrow(() -> new CustomerNotFoundException("Customer with ID '" + command.getCustomerId() + "' not found."));
         User user = userRepositoryPort.findById(command.getUserId())
-                .orElseThrow(() -> new UserNotFoundException("User with ID '" + command.getUserId() + "' not found"));
+                .orElseThrow(() -> new UserNotFoundException("User with ID '" + command.getUserId() + "' not found."));
 
         Order order = Order.createNew(customer, user, items);
         Order savedOrder = orderRepositoryPort.save(order);

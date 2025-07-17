@@ -18,7 +18,7 @@ public class CreateCategoryService implements CreateCategoryUseCase {
             throw new DuplicateEntryException("Category with name '" + command.getName() + "' already exists.");
         }
 
-        Category category = Category.createNewCategory(command.getName(), command.getDescription());
+        Category category = Category.createNew(command.getName(), command.getDescription());
         Category savedCategory = categoryRepositoryPort.save(category);
 
         return CategoryResponse.toResponse(savedCategory);

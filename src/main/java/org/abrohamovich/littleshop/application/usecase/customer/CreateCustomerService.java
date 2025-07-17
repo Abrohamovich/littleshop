@@ -15,10 +15,10 @@ public class CreateCustomerService implements CreateCustomerUseCase {
     @Override
     public CustomerResponse save(CustomerCreateCommand command) {
         if (customerRepositoryPort.findByEmail(command.getEmail()).isPresent()) {
-            throw new DuplicateEntryException("Customer with email " + command.getEmail() + " already exists");
+            throw new DuplicateEntryException("Customer with email " + command.getEmail() + " already exists.");
         }
         if (customerRepositoryPort.findByPhone(command.getPhone()).isPresent()) {
-            throw new DuplicateEntryException("Customer with phone " + command.getPhone() + " already exists");
+            throw new DuplicateEntryException("Customer with phone " + command.getPhone() + " already exists.");
         }
 
         Customer customer = Customer.createNewCustomer(command.getFirstName(), command.getLastName(),

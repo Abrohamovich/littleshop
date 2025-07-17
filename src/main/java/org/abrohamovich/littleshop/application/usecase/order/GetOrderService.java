@@ -1,11 +1,9 @@
 package org.abrohamovich.littleshop.application.usecase.order;
 
 import lombok.RequiredArgsConstructor;
-import org.abrohamovich.littleshop.application.dto.customer.CustomerResponse;
 import org.abrohamovich.littleshop.application.dto.order.OrderResponse;
 import org.abrohamovich.littleshop.application.port.in.order.GetOrderUseCase;
 import org.abrohamovich.littleshop.application.port.out.persistence.OrderRepositoryPort;
-import org.abrohamovich.littleshop.domain.exception.customer.CustomerNotFoundException;
 import org.abrohamovich.littleshop.domain.exception.order.OrderNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

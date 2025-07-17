@@ -14,13 +14,13 @@ import java.util.List;
 @ToString
 public class Offer {
     private final Long id;
+    private final LocalDateTime createdAt;
     private String name;
     private double price;
     private OfferType type;
     private String description;
     private Category category;
     private Supplier supplier;
-    private final LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
     public Offer(Long id, String name, double price, OfferType type, String description, Category category,
