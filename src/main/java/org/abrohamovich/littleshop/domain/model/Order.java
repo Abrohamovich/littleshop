@@ -67,21 +67,21 @@ public class Order {
         return newItem;
     }
 
-    public void updateOrderItemQuantity(Long offerItemId, int newQuantity) {
+    public void updateOrderItemQuantity(Long orderItemId, int newQuantity) {
         OrderItem itemToUpdate = this.items.stream()
-                .filter(item -> Objects.equals(item.getId(), offerItemId))
+                .filter(item -> Objects.equals(item.getId(), orderItemId))
                 .findFirst()
-                .orElseThrow(() -> new OrderItemValidationException("Order item with ID " + offerItemId + " not found in this order."));
+                .orElseThrow(() -> new OrderItemValidationException("Order item with ID " + orderItemId + " not found in this order."));
 
         itemToUpdate.updateQuantity(newQuantity);
         this.updatedAt = LocalDateTime.now();
         validateSelf();
     }
 
-    public void removeOrderItem(Long offerItemId) {
-        boolean removed = this.items.removeIf(item -> Objects.equals(item.getId(), offerItemId));
+    public void removeOrderItem(Long orderItemId) {
+        boolean removed = this.items.removeIf(item -> Objects.equals(item.getId(), orderItemId));
         if (!removed) {
-            throw new OrderItemValidationException("Order item with ID " + offerItemId + " not found in this order to remove.");
+            throw new OrderItemValidationException("Order item with ID " + orderItemId + " not found in this order to remove.");
         }
         this.updatedAt = LocalDateTime.now();
         validateSelf();
