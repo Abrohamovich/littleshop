@@ -1,0 +1,1 @@
+package org.abrohamovich.littleshop.application.port.out;

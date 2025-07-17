@@ -10,7 +10,7 @@ public interface GetOfferUseCase {
     Page<OfferResponse> getOffersByNameLike(String name, Pageable pageable);
     Page<OfferResponse> getOffersByCategoryId(Long categoryId, Pageable pageable);
     Page<OfferResponse> getOffersBySupplierId(Long supplierId, Pageable pageable);
-    Page<OfferResponse> findOffersByPriceIsGreaterThanEquals(Double price, Pageable pageable);
-    Page<OfferResponse> findOffersByPriceIsLessThanEquals(Double price, Pageable pageable);
-    Page<OfferResponse> findOffersByPriceIsGreaterThanEqualsAndLessThanEquals(Double price, Pageable pageable);
+    Page<OfferResponse> getOffersByPriceIsGreaterThanEquals(Double price, Pageable pageable);
+    Page<OfferResponse> getOffersByPriceIsLessThanEquals(Double price, Pageable pageable);
+    Page<OfferResponse> getOffersByPriceIsGreaterThanEqualsAndLessThanEquals(Double price, Pageable pageable);
 }
