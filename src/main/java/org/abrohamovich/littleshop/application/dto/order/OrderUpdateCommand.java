@@ -16,5 +16,4 @@ import java.util.List;
 public class OrderUpdateCommand {
     private Long customerId;
     private Long userId;
-    private OrderStatus status;
 }

@@ -1,7 +1,13 @@
 package org.abrohamovich.littleshop.application.dto.orderItem;
 
+import lombok.*;
+
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class OrderItemAddToOrderCommand {
-    private Long orderId;
     private Long offerId;
     private int quantity;
 }

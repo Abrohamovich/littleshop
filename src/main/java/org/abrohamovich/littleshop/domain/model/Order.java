@@ -50,10 +50,9 @@ public class Order {
         return new Order(id, customer, user, status, items, createdAt, updatedAt);
     }
 
-    public void updateDetails(Customer customer, User user, OrderStatus status) {
+    public void updateDetails(Customer customer, User user) {
         this.customer = customer;
         this.user = user;
-        this.status = status;
         this.updatedAt = LocalDateTime.now();
 
         validateSelf();

@@ -4,5 +4,5 @@ import org.abrohamovich.littleshop.application.dto.order.OrderResponse;
 import org.abrohamovich.littleshop.application.dto.order.OrderUpdateCommand;
 
 public interface UpdateOrderUseCase {
-    OrderResponse update(OrderUpdateCommand command);
+    OrderResponse update(Long orderId, OrderUpdateCommand command);
 }

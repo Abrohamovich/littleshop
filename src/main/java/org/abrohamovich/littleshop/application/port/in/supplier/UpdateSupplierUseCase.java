@@ -4,5 +4,5 @@ import org.abrohamovich.littleshop.application.dto.supplier.SupplierResponse;
 import org.abrohamovich.littleshop.application.dto.supplier.SupplierUpdateCommand;
 
 public interface UpdateSupplierUseCase {
-    SupplierResponse update(SupplierUpdateCommand command);
+    SupplierResponse update(Long id, SupplierUpdateCommand command);
 }

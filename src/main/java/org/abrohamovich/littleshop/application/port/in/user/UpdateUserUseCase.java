@@ -4,5 +4,5 @@ import org.abrohamovich.littleshop.application.dto.user.UserResponse;
 import org.abrohamovich.littleshop.application.dto.user.UserUpdateCommand;
 
 public interface UpdateUserUseCase {
-    UserResponse update(UserUpdateCommand command);
+    UserResponse update(Long id, UserUpdateCommand command);
 }

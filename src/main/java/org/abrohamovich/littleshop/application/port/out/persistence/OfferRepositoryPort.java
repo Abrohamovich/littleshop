@@ -8,7 +8,8 @@ import java.util.Optional;
 
 public interface OfferRepositoryPort {
     Offer save(Offer offer);
-    Optional<Offer> findOfferById(Long id);
+    Optional<Offer> findById(Long id);
+    Optional<Offer> findByName(String name);
     Page<Offer> findAll(Pageable pageable);
     Page<Offer> findByNameLike(String name, Pageable pageable);
     Page<Offer> findByCategoryId(Long categoryId, Pageable pageable);
