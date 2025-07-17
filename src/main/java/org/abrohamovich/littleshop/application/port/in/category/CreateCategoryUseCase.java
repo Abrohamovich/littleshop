@@ -4,5 +4,5 @@ import org.abrohamovich.littleshop.application.dto.cateogry.CategoryCreateComman
 import org.abrohamovich.littleshop.application.dto.cateogry.CategoryResponse;
 
 public interface CreateCategoryUseCase {
-    CategoryResponse createCategory(CategoryCreateCommand command);
+    CategoryResponse save(CategoryCreateCommand command);
 }

@@ -4,5 +4,5 @@ import org.abrohamovich.littleshop.application.dto.offer.OfferResponse;
 import org.abrohamovich.littleshop.application.dto.offer.OfferUpdateCommand;
 
 public interface UpdateOfferUseCase {
-    OfferResponse updateOffer(OfferUpdateCommand command);
+    OfferResponse update(OfferUpdateCommand command);
 }

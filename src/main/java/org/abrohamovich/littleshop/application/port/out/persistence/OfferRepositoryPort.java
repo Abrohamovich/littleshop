@@ -9,12 +9,12 @@ import java.util.Optional;
 public interface OfferRepositoryPort {
     Offer save(Offer offer);
     Optional<Offer> findOfferById(Long id);
-    Page<Offer> findAllOffers(Pageable pageable);
-    Page<Offer> findOffersByNameLike(String name, Pageable pageable);
-    Page<Offer> findOffersByCategoryId(Long categoryId, Pageable pageable);
-    Page<Offer> findOffersBySupplierId(Long supplierId, Pageable pageable);
-    Page<Offer> findOffersByPriceIsGreaterThanEquals(Double price, Pageable pageable);
-    Page<Offer> findOffersByPriceIsLessThanEquals(Double price, Pageable pageable);
-    Page<Offer> findOffersByPriceIsGreaterThanEqualsAndLessThanEquals(Double price, Pageable pageable);
+    Page<Offer> findAll(Pageable pageable);
+    Page<Offer> findByNameLike(String name, Pageable pageable);
+    Page<Offer> findByCategoryId(Long categoryId, Pageable pageable);
+    Page<Offer> findBySupplierId(Long supplierId, Pageable pageable);
+    Page<Offer> findByPriceIsGreaterThanEquals(Double price, Pageable pageable);
+    Page<Offer> findByPriceIsLessThanEquals(Double price, Pageable pageable);
+    Page<Offer> findByPriceIsGreaterThanEqualsAndLessThanEquals(Double price, Pageable pageable);
     void deleteById(Long id);
 }

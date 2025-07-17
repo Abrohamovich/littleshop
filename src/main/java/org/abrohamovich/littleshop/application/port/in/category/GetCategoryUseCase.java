@@ -5,8 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface GetCategoryUseCase {
-    CategoryResponse getCategoryById(Long id);
-    Page<CategoryResponse> getAllCategories(Pageable pageable);
-    Page<CategoryResponse> getCategoriesByNameLike(String name, Pageable pageable);
-    Page<CategoryResponse> getCategoriesByDescriptionLike(String description, Pageable pageable);
+    CategoryResponse findById(Long id);
+    Page<CategoryResponse> findAll(Pageable pageable);
+    Page<CategoryResponse> findByNameLike(String name, Pageable pageable);
+    Page<CategoryResponse> findByDescriptionLike(String description, Pageable pageable);
 }

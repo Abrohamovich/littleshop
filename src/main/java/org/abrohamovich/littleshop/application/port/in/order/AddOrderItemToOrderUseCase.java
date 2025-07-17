@@ -4,5 +4,5 @@ import org.abrohamovich.littleshop.application.dto.order.OrderResponse;
 import org.abrohamovich.littleshop.application.dto.orderItem.OrderItemAddToOrderCommand;
 
 public interface AddOrderItemToOrderUseCase {
-    OrderResponse addOrderItemToOrder(OrderItemAddToOrderCommand command);
+    OrderResponse add(OrderItemAddToOrderCommand command);
 }

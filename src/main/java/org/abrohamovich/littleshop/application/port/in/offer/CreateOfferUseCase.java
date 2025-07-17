@@ -4,5 +4,5 @@ import org.abrohamovich.littleshop.application.dto.offer.OfferCreateCommand;
 import org.abrohamovich.littleshop.application.dto.offer.OfferResponse;
 
 public interface CreateOfferUseCase {
-    OfferResponse createOffer(OfferCreateCommand command);
+    OfferResponse save(OfferCreateCommand command);
 }

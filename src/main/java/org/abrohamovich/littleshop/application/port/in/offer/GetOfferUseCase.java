@@ -5,12 +5,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface GetOfferUseCase {
-    OfferResponse getOfferById(Long id);
-    Page<OfferResponse> getAllOffers(Pageable pageable);
-    Page<OfferResponse> getOffersByNameLike(String name, Pageable pageable);
-    Page<OfferResponse> getOffersByCategoryId(Long categoryId, Pageable pageable);
-    Page<OfferResponse> getOffersBySupplierId(Long supplierId, Pageable pageable);
-    Page<OfferResponse> getOffersByPriceIsGreaterThanEquals(Double price, Pageable pageable);
-    Page<OfferResponse> getOffersByPriceIsLessThanEquals(Double price, Pageable pageable);
-    Page<OfferResponse> getOffersByPriceIsGreaterThanEqualsAndLessThanEquals(Double price, Pageable pageable);
+    OfferResponse findById(Long id);
+    Page<OfferResponse> findAll(Pageable pageable);
+    Page<OfferResponse> findByNameLike(String name, Pageable pageable);
+    Page<OfferResponse> findByCategoryId(Long categoryId, Pageable pageable);
+    Page<OfferResponse> findBySupplierId(Long supplierId, Pageable pageable);
+    Page<OfferResponse> findByPriceIsGreaterThanEquals(Double price, Pageable pageable);
+    Page<OfferResponse> findByPriceIsLessThanEquals(Double price, Pageable pageable);
+    Page<OfferResponse> findByPriceIsGreaterThanEqualsAndLessThanEquals(Double price, Pageable pageable);
 }

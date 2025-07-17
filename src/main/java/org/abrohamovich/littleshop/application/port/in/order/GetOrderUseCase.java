@@ -5,8 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface GetOrderUseCase {
-    OrderResponse getOrder(Long id);
-    Page<OrderResponse> getAllOrders(Pageable pageable);
-    Page<OrderResponse> getOrdersByCustomerId(Long customerId, Pageable pageable);
-    Page<OrderResponse> getOrdersByUserId(Long userId, Pageable pageable);
+    OrderResponse findById(Long id);
+    Page<OrderResponse> findAll(Pageable pageable);
+    Page<OrderResponse> findByCustomerId(Long customerId, Pageable pageable);
+    Page<OrderResponse> findByUserId(Long userId, Pageable pageable);
 }

@@ -4,5 +4,5 @@ import org.abrohamovich.littleshop.application.dto.order.OrderCreateCommand;
 import org.abrohamovich.littleshop.application.dto.order.OrderResponse;
 
 public interface CreateOrderUseCase {
-    OrderResponse createOrder(OrderCreateCommand command);
+    OrderResponse save(OrderCreateCommand command);
 }

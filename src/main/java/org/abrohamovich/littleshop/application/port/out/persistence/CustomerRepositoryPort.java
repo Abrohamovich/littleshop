@@ -11,7 +11,7 @@ public interface CustomerRepositoryPort {
     Optional<Customer> findById(Long id);
     Optional<Customer> findByEmail(String email);
     Optional<Customer> findByPhone(String phone);
-    Page<Customer> findAllCustomers(Pageable pageable);
+    Page<Customer> findAll(Pageable pageable);
     Page<Customer> findByFirstNameLike(String firstName, Pageable pageable);
     Page<Customer> findByLastNameLike(String lastName, Pageable pageable);
     Page<Customer> findByEmailLike(String email, Pageable pageable);

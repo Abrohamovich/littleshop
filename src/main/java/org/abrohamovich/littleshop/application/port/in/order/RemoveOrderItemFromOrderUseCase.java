@@ -4,5 +4,5 @@ import org.abrohamovich.littleshop.application.dto.order.OrderResponse;
 import org.abrohamovich.littleshop.application.dto.orderItem.OrderItemRemoveFromOrderCommand;
 
 public interface RemoveOrderItemFromOrderUseCase {
-    OrderResponse removeOrderItemFromOrder(OrderItemRemoveFromOrderCommand command);
+    OrderResponse remove(OrderItemRemoveFromOrderCommand command);
 }

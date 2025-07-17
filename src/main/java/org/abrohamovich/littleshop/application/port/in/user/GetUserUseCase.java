@@ -5,9 +5,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface GetUserUseCase {
-    UserResponse getUserById(Long id);
-    Page<UserResponse> getAllUsers(Pageable pageable);
-    Page<UserResponse> getUsersByFirstNameLike(String firstName, Pageable pageable);
-    Page<UserResponse> getUsersByLastNameLike(String lastName, Pageable pageable);
-    Page<UserResponse> getUsersByEmailLike(String email, Pageable pageable);
+    UserResponse findById(Long id);
+    Page<UserResponse> findAll(Pageable pageable);
+    Page<UserResponse> findByFirstNameLike(String firstName, Pageable pageable);
+    Page<UserResponse> findByLastNameLike(String lastName, Pageable pageable);
+    Page<UserResponse> findByEmailLike(String email, Pageable pageable);
 }

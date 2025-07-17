@@ -4,5 +4,5 @@ import org.abrohamovich.littleshop.application.dto.supplier.SupplierCreateComman
 import org.abrohamovich.littleshop.application.dto.supplier.SupplierResponse;
 
 public interface CreateSupplierUseCase {
-    SupplierResponse createSupplier(SupplierCreateCommand command);
+    SupplierResponse save(SupplierCreateCommand command);
 }

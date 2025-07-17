@@ -5,9 +5,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface GetSupplierUseCase {
-    SupplierResponse getSupplierById(Long id);
-    Page<SupplierResponse> getAllSuppliers(Pageable pageable);
-    Page<SupplierResponse> getSuppliersByNameLike(String name, Pageable pageable);
-    Page<SupplierResponse> getSuppliersByEmailLike(String email, Pageable pageable);
-    Page<SupplierResponse> getSuppliersByPhoneLike(String phone, Pageable pageable);
+    SupplierResponse findById(Long id);
+    Page<SupplierResponse> findAll(Pageable pageable);
+    Page<SupplierResponse> findByNameLike(String name, Pageable pageable);
+    Page<SupplierResponse> findByEmailLike(String email, Pageable pageable);
+    Page<SupplierResponse> findByPhoneLike(String phone, Pageable pageable);
 }

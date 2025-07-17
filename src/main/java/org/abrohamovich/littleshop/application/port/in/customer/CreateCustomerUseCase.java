@@ -4,5 +4,5 @@ import org.abrohamovich.littleshop.application.dto.customer.CustomerCreateComman
 import org.abrohamovich.littleshop.application.dto.customer.CustomerResponse;
 
 public interface CreateCustomerUseCase {
-    CustomerResponse createCustomer(CustomerCreateCommand command);
+    CustomerResponse save(CustomerCreateCommand command);
 }
