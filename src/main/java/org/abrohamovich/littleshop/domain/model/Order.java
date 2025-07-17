@@ -1,0 +1,138 @@
+package org.abrohamovich.littleshop.domain.model;
+
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
+import org.abrohamovich.littleshop.domain.exception.order.OrderValidationException;
+import org.abrohamovich.littleshop.domain.exception.orderItem.OrderItemValidationException;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+
+@Getter
+@EqualsAndHashCode
+@ToString
+public class Order {
+    private final Long id;
+    private Customer customer;
+    private User user;
+    private OrderStatus status;
+    private final List<OrderItem> items;
+    private final LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+
+    public Order(Long id, Customer customer, User user, OrderStatus status,
+                 List<OrderItem> items, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        this.id = id;
+        this.customer = customer;
+        this.user = user;
+        this.status = status;
+        this.items = items != null ? new ArrayList<>(items) : new ArrayList<>();
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+
+        validateSelf();
+    }
+
+    public static Order createNew(Customer customer, User user, List<OrderItem> items) {
+        OrderStatus initialStatus = OrderStatus.IN_PROGRESS;
+        return new Order(null, customer, user, initialStatus, items, LocalDateTime.now(), LocalDateTime.now());
+    }
+
+    public static Order withId(Long id, Customer customer, User user, OrderStatus status,
+                               List<OrderItem> items, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        if (id == null) {
+            throw new IllegalArgumentException("ID cannot be null for existing Order");
+        }
+        return new Order(id, customer, user, status, items, createdAt, updatedAt);
+    }
+
+    public void updateDetails(Customer customer, User user, OrderStatus status) {
+        this.customer = customer;
+        this.user = user;
+        this.status = status;
+        this.updatedAt = LocalDateTime.now();
+
+        validateSelf();
+    }
+
+    public OrderItem addOrderItem(Offer offer, int quantity) {
+        OrderItem newItem = OrderItem.createNew(offer, quantity);
+        this.items.add(newItem);
+        this.updatedAt = LocalDateTime.now();
+        validateSelf();
+        return newItem;
+    }
+
+    public void updateOrderItemQuantity(Long offerItemId, int newQuantity) {
+        OrderItem itemToUpdate = this.items.stream()
+                .filter(item -> Objects.equals(item.getId(), offerItemId))
+                .findFirst()
+                .orElseThrow(() -> new OrderItemValidationException("Order item with ID " + offerItemId + " not found in this order."));
+
+        itemToUpdate.updateQuantity(newQuantity);
+        this.updatedAt = LocalDateTime.now();
+        validateSelf();
+    }
+
+    public void removeOrderItem(Long offerItemId) {
+        boolean removed = this.items.removeIf(item -> Objects.equals(item.getId(), offerItemId));
+        if (!removed) {
+            throw new OrderItemValidationException("Order item with ID " + offerItemId + " not found in this order to remove.");
+        }
+        this.updatedAt = LocalDateTime.now();
+        validateSelf();
+    }
+
+    public void changeStatus(OrderStatus newStatus) {
+        if (newStatus == null) {
+            throw new IllegalArgumentException("New order status cannot be null.");
+        }
+        if (this.status == OrderStatus.CANCELLED && newStatus != OrderStatus.CANCELLED) {
+            throw new OrderValidationException("Cannot change status from CANCELLED.");
+        }
+        this.status = newStatus;
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    public double totalPrice() {
+        return items.stream().mapToDouble(item -> item.getQuantity() * item.getPriceAtTimeOfOrder()).sum();
+    }
+
+    public List<OrderItem> getItems() {
+        return Collections.unmodifiableList(items);
+    }
+
+    private void validateSelf() {
+        List<String> errors = new ArrayList<>();
+
+        if (customer == null) {
+            errors.add("customer cannot be null");
+        }
+        if (user == null) {
+            errors.add("user cannot be null");
+        }
+        if (status == null) {
+            errors.add("status cannot be null");
+        }
+        if (items == null || items.isEmpty()) {
+            errors.add("order must contain at least one item");
+        } else {
+            List<String> itemValidationErrors = items.stream()
+                    .filter(Objects::isNull)
+                    .map(item -> "order item cannot be null")
+                    .toList();
+            if (!itemValidationErrors.isEmpty()) {
+                errors.addAll(itemValidationErrors);
+            }
+        }
+
+        if (!errors.isEmpty()) {
+            String errorMessage = "Order validation failed: " + String.join(", ", errors);
+            throw new OrderValidationException(errorMessage);
+        }
+    }
+}
