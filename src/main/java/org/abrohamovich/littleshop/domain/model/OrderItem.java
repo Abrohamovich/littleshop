@@ -14,7 +14,7 @@ import java.util.List;
 @ToString
 public class OrderItem {
     private final Long id;
-    private final Offer offer;
+    private Offer offer;
     private final double priceAtTimeOfOrder;
     private final LocalDateTime createdAt;
     private int quantity;
@@ -28,8 +28,16 @@ public class OrderItem {
         this.priceAtTimeOfOrder = priceAtTimeOfOrder;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
-
         validateSelf();
+    }
+
+    private OrderItem(Long id, int quantity, double priceAtTimeOfOrder,
+                      LocalDateTime createdAt, LocalDateTime updatedAt) {
+        this.id = id;
+        this.quantity = quantity;
+        this.priceAtTimeOfOrder = priceAtTimeOfOrder;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
     public static OrderItem createNew(Offer offer, int quantity) {
@@ -45,6 +53,11 @@ public class OrderItem {
             throw new IllegalArgumentException("ID cannot be null for existing OrderItem when calling withId");
         }
         return new OrderItem(id, offer, quantity, priceAtTimeOfOrder, createdAt, updatedAt);
+    }
+
+    public static OrderItem createForPersistenceHydration(Long id, int quantity, double priceAtTimeOfOrder,
+                                                          LocalDateTime createdAt, LocalDateTime updatedAt) {
+        return new OrderItem(id, quantity, priceAtTimeOfOrder, createdAt, updatedAt);
     }
 
     public void updateQuantity(int newQuantity) {

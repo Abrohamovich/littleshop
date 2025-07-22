@@ -17,7 +17,7 @@ import java.util.Objects;
 @ToString
 public class Order {
     private final Long id;
-    private final List<OrderItem> items;
+    private List<OrderItem> items;
     private final LocalDateTime createdAt;
     private Customer customer;
     private User user;
@@ -37,6 +37,13 @@ public class Order {
         validateSelf();
     }
 
+    public Order(Long id, LocalDateTime createdAt, OrderStatus status, LocalDateTime updatedAt) {
+        this.id = id;
+        this.createdAt = createdAt;
+        this.status = status;
+        this.updatedAt = updatedAt;
+    }
+
     public static Order createNew(Customer customer, User user, List<OrderItem> items) {
         OrderStatus initialStatus = OrderStatus.IN_PROGRESS;
         return new Order(null, customer, user, initialStatus, items, LocalDateTime.now(), LocalDateTime.now());
@@ -48,6 +55,11 @@ public class Order {
             throw new IllegalArgumentException("ID cannot be null for existing Order");
         }
         return new Order(id, customer, user, status, items, createdAt, updatedAt);
+    }
+
+    public static Order createForPersistenceHydration(Long id, LocalDateTime createdAt,
+                                                      OrderStatus status, LocalDateTime updatedAt) {
+        return new Order(id, createdAt, status, updatedAt);
     }
 
     public void updateDetails(Customer customer, User user) {

@@ -15,9 +15,9 @@ public interface GetOfferUseCase {
 
     Page<OfferResponse> findBySupplierId(Long supplierId, Pageable pageable);
 
-    Page<OfferResponse> findByPriceIsGreaterThanEquals(Double price, Pageable pageable);
+    Page<OfferResponse> findByPriceIsGreaterThanEqual(Double price, Pageable pageable);
 
-    Page<OfferResponse> findByPriceIsLessThanEquals(Double price, Pageable pageable);
+    Page<OfferResponse> findByPriceIsLessThanEqual(Double price, Pageable pageable);
 
-    Page<OfferResponse> findByPriceIsGreaterThanEqualsAndLessThanEquals(Double price, Pageable pageable);
+    Page<OfferResponse> findByPriceIsGreaterThanEqualAndPriceLessThanEqual(Double minPrice, Double maxPrice, Pageable pageable);
 }

@@ -44,20 +44,20 @@ public class GetOfferService implements GetOfferUseCase {
     }
 
     @Override
-    public Page<OfferResponse> findByPriceIsGreaterThanEquals(Double price, Pageable pageable) {
-        return offerRepositoryPort.findByPriceIsGreaterThanEquals(price, pageable)
+    public Page<OfferResponse> findByPriceIsGreaterThanEqual(Double price, Pageable pageable) {
+        return offerRepositoryPort.findByPriceIsGreaterThanEqual(price, pageable)
                 .map(OfferResponse::toResponse);
     }
 
     @Override
-    public Page<OfferResponse> findByPriceIsLessThanEquals(Double price, Pageable pageable) {
-        return offerRepositoryPort.findByPriceIsLessThanEquals(price, pageable)
+    public Page<OfferResponse> findByPriceIsLessThanEqual(Double price, Pageable pageable) {
+        return offerRepositoryPort.findByPriceIsLessThanEqual(price, pageable)
                 .map(OfferResponse::toResponse);
     }
 
     @Override
-    public Page<OfferResponse> findByPriceIsGreaterThanEqualsAndLessThanEquals(Double price, Pageable pageable) {
-        return offerRepositoryPort.findByPriceIsGreaterThanEqualsAndLessThanEquals(price, pageable)
+    public Page<OfferResponse> findByPriceIsGreaterThanEqualAndPriceLessThanEqual(Double minPrice, Double maxPrice, Pageable pageable) {
+        return offerRepositoryPort.findByPriceIsGreaterThanEqualAndPriceLessThanEqual(minPrice, maxPrice, pageable)
                 .map(OfferResponse::toResponse);
     }
 }

@@ -39,17 +39,6 @@ public class OrderJpaEntity {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<OrderItemJpaEntity> items = new ArrayList<>();
 
-    public OrderJpaEntity(Long id, CustomerJpaEntity customer, UserJpaEntity user, OrderStatus status,
-                          List<OrderItemJpaEntity> items, LocalDateTime createdAt, LocalDateTime updatedAt) {
-        this.id = id;
-        this.customer = customer;
-        this.user = user;
-        this.status = status;
-        this.items = items != null ? new ArrayList<>(items) : new ArrayList<>();
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-    }
-
     public void addOrderItem(OrderItemJpaEntity item) {
         this.items.add(item);
         item.setOrder(this);

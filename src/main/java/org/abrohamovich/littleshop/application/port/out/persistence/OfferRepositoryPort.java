@@ -21,11 +21,11 @@ public interface OfferRepositoryPort {
 
     Page<Offer> findBySupplierId(Long supplierId, Pageable pageable);
 
-    Page<Offer> findByPriceIsGreaterThanEquals(Double price, Pageable pageable);
+    Page<Offer> findByPriceIsGreaterThanEqual(Double price, Pageable pageable);
 
-    Page<Offer> findByPriceIsLessThanEquals(Double price, Pageable pageable);
+    Page<Offer> findByPriceIsLessThanEqual(Double price, Pageable pageable);
 
-    Page<Offer> findByPriceIsGreaterThanEqualsAndLessThanEquals(Double price, Pageable pageable);
+    Page<Offer> findByPriceIsGreaterThanEqualAndPriceLessThanEqual(Double minPrice, Double maxPrice, Pageable pageable);
 
     void deleteById(Long id);
 }

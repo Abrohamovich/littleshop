@@ -38,6 +38,17 @@ public class Offer {
         validateSelf();
     }
 
+    private Offer(Long id, String name, double price, OfferType type, String description,
+                  LocalDateTime createdAt, LocalDateTime updatedAt) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.type = type;
+        this.description = description;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
+
     public static Offer createNew(String name, double price, OfferType type,
                                   String description, Category category, Supplier supplier) {
         return new Offer(null, name, price, type, description, category, supplier, LocalDateTime.now(), LocalDateTime.now());
@@ -49,6 +60,11 @@ public class Offer {
             throw new IllegalArgumentException("ID cannot be null for existing Offer");
         }
         return new Offer(id, name, price, type, description, category, supplier, createdAt, updatedAt);
+    }
+
+    public static Offer createForPersistenceHydration(Long id, String name, double price, OfferType type,
+                                                      String description, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        return new Offer(id, name, price, type, description, createdAt, updatedAt);
     }
 
     public void updateDetails(String name, double price, OfferType type, String description,
