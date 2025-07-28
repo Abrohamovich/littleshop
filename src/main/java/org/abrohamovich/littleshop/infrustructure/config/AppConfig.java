@@ -12,7 +12,7 @@ import org.abrohamovich.littleshop.application.port.in.offer.CreateOfferUseCase;
 import org.abrohamovich.littleshop.application.port.in.offer.DeleteOfferUseCase;
 import org.abrohamovich.littleshop.application.port.in.offer.GetOfferUseCase;
 import org.abrohamovich.littleshop.application.port.in.offer.UpdateOfferUseCase;
-import org.abrohamovich.littleshop.application.port.in.order.CreateOrderUseCase;
+import org.abrohamovich.littleshop.application.port.in.order.*;
 import org.abrohamovich.littleshop.application.port.in.supplier.CreateSupplierUseCase;
 import org.abrohamovich.littleshop.application.port.in.supplier.DeleteSupplierUseCase;
 import org.abrohamovich.littleshop.application.port.in.supplier.GetSupplierUseCase;
@@ -34,7 +34,7 @@ import org.abrohamovich.littleshop.application.usecase.offer.CreateOfferService;
 import org.abrohamovich.littleshop.application.usecase.offer.DeleteOfferService;
 import org.abrohamovich.littleshop.application.usecase.offer.GetOfferService;
 import org.abrohamovich.littleshop.application.usecase.offer.UpdateOfferService;
-import org.abrohamovich.littleshop.application.usecase.order.CreateOrderService;
+import org.abrohamovich.littleshop.application.usecase.order.*;
 import org.abrohamovich.littleshop.application.usecase.supplier.CreateSupplierService;
 import org.abrohamovich.littleshop.application.usecase.supplier.DeleteSupplierService;
 import org.abrohamovich.littleshop.application.usecase.supplier.GetSupplierService;
@@ -154,5 +154,41 @@ public class AppConfig {
     public CreateOrderUseCase createOrderUseCase(OrderRepositoryPort orderRepositoryPort, OfferRepositoryPort offerRepositoryPort,
                                                  CustomerRepositoryPort customerRepositoryPort, UserRepositoryPort userRepositoryPort) {
         return new CreateOrderService(orderRepositoryPort, offerRepositoryPort, customerRepositoryPort, userRepositoryPort);
+    }
+
+    @Bean
+    public AddOrderItemToOrderUseCase addOrderItemToOrderUseCase(OrderRepositoryPort orderRepositoryPort, OfferRepositoryPort offerRepositoryPort) {
+        return new AddOrderItemToOrderService(orderRepositoryPort, offerRepositoryPort);
+    }
+
+    @Bean
+    public ChangeOrderStatusUseCase changeOrderStatusUseCase(OrderRepositoryPort orderRepositoryPort) {
+        return new ChangeOrderStatusService(orderRepositoryPort);
+    }
+
+    @Bean
+    public GetOrderUseCase getOrderUseCase(OrderRepositoryPort orderRepositoryPort) {
+        return new GetOrderService(orderRepositoryPort);
+    }
+
+    @Bean
+    public DeleteOrderUseCase deleteOrderUseCase(OrderRepositoryPort orderRepositoryPort) {
+        return new DeleteOrderService(orderRepositoryPort);
+    }
+
+    @Bean
+    public RemoveOrderItemFromOrderUseCase removeOrderItemFromOrderUseCase(OrderRepositoryPort orderRepositoryPort) {
+        return new RemoveOrderItemFromOrderService(orderRepositoryPort);
+    }
+
+    @Bean
+    public UpdateOrderItemQuantityUseCase updateOrderItemQuantityUseCase(OrderRepositoryPort orderRepositoryPort) {
+        return new UpdateOrderItemQuantityService(orderRepositoryPort);
+    }
+
+    @Bean
+    public UpdateOrderUseCase updateOrderUseCase(OrderRepositoryPort orderRepositoryPort,
+                                                 CustomerRepositoryPort customerRepositoryPort, UserRepositoryPort userRepositoryPort) {
+        return new UpdateOrderService(orderRepositoryPort, customerRepositoryPort, userRepositoryPort);
     }
 }

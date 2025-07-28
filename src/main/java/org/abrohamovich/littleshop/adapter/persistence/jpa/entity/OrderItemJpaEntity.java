@@ -1,10 +1,7 @@
 package org.abrohamovich.littleshop.adapter.persistence.jpa.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.abrohamovich.littleshop.domain.model.Offer;
 
 import java.time.LocalDateTime;
@@ -15,6 +12,7 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class OrderItemJpaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

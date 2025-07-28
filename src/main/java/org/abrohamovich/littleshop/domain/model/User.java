@@ -26,7 +26,7 @@ public class User {
 
     private User(Long id, String firstName, String lastName, String email, String hashedPassword,
                  UserRole role, String phone, LocalDateTime createdAt, LocalDateTime updatedAt) {
-        this.id = null;
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

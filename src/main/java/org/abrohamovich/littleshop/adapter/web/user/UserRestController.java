@@ -40,6 +40,7 @@ public class UserRestController {
         return new ResponseEntity<>(userWebMapper.toWebResponse(userResponse), HttpStatus.OK);
     }
 
+    @GetMapping
     public ResponseEntity<PageResponse<UserWebResponse>> get(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
