@@ -110,7 +110,7 @@ public class User {
         }
 
         if (!errors.isEmpty()) {
-            String errorMessage = "User validation failed: " + String.join(", ", errors);
+            String errorMessage = "User validation failed: " + String.join(", ", errors) + ".";
             throw new UserValidationException(errorMessage);
         }
     }

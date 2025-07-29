@@ -20,7 +20,7 @@ public class OrderItem {
     private int quantity;
     private LocalDateTime updatedAt;
 
-    public OrderItem(Long id, Offer offer, int quantity, double priceAtTimeOfOrder,
+    private OrderItem(Long id, Offer offer, int quantity, double priceAtTimeOfOrder,
                      LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.offer = offer;
@@ -81,7 +81,7 @@ public class OrderItem {
         }
 
         if (!errors.isEmpty()) {
-            String errorMessage = "OrderItem validation failed: " + String.join(", ", errors);
+            String errorMessage = "OrderItem validation failed: " + String.join(", ", errors) + ".";
             throw new OrderItemValidationException(errorMessage);
         }
     }

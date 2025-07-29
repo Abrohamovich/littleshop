@@ -59,7 +59,7 @@ public class Category {
         }
 
         if (!errors.isEmpty()) {
-            String errorMessage = "Category validation failed: " + String.join(", ", errors);
+            String errorMessage = "Category validation failed: " + String.join(", ", errors) + ".";
             throw new CustomerValidationException(errorMessage);
         }
     }

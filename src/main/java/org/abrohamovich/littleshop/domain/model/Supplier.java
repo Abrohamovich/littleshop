@@ -79,7 +79,7 @@ public class Supplier {
         }
 
         if (!errors.isEmpty()) {
-            String errorMessage = "Supplier validation failed: " + String.join(", ", errors);
+            String errorMessage = "Supplier validation failed: " + String.join(", ", errors) + ".";
             throw new SupplierValidationException(errorMessage);
         }
     }

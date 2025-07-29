@@ -1,6 +1,13 @@
 package org.abrohamovich.littleshop.domain.exception.offer;
 
-public class OfferValidationException extends RuntimeException {
-    public OfferValidationException(String errorMessage) {
+import org.abrohamovich.littleshop.domain.exception.ModelValidationException;
+
+public class OfferValidationException extends ModelValidationException {
+    public OfferValidationException(String message) {
+        super(message);
+    }
+
+    public OfferValidationException(String message, Throwable cause) {
+        super(message, cause);
     }
 }

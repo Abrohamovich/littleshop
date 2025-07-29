@@ -1,6 +1,13 @@
 package org.abrohamovich.littleshop.domain.exception.order;
 
-public class OrderValidationException extends RuntimeException {
-    public OrderValidationException(String s) {
+import org.abrohamovich.littleshop.domain.exception.ModelValidationException;
+
+public class OrderValidationException extends ModelValidationException {
+    public OrderValidationException(String message) {
+        super(message);
+    }
+
+    public OrderValidationException(String message, Throwable cause) {
+        super(message, cause);
     }
 }

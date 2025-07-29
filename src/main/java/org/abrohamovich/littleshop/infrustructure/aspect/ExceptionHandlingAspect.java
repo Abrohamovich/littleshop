@@ -3,8 +3,8 @@ package org.abrohamovich.littleshop.infrustructure.aspect;
 import lombok.extern.slf4j.Slf4j;
 import org.abrohamovich.littleshop.domain.exception.DataPersistenceException;
 import org.abrohamovich.littleshop.domain.exception.DuplicateEntryException;
-import org.abrohamovich.littleshop.domain.exception.category.CategoryNotFoundException;
-import org.abrohamovich.littleshop.domain.exception.category.CategoryValidationException;
+import org.abrohamovich.littleshop.domain.exception.ModelNotFoundException;
+import org.abrohamovich.littleshop.domain.exception.ModelValidationException;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -25,11 +25,11 @@ public class ExceptionHandlingAspect {
     public Object handleServiceExceptions(ProceedingJoinPoint joinPoint) throws Throwable {
         try {
             return joinPoint.proceed();
-        } catch (CategoryNotFoundException e) {
-            log.warn("Category not found error in {}: {}", joinPoint.getSignature().toShortString(), e.getMessage());
+        } catch (ModelNotFoundException e) {
+            log.warn("Model not found error in {}: {}", joinPoint.getSignature().toShortString(), e.getMessage());
             throw e;
-        } catch (CategoryValidationException e) {
-            log.warn("Category validation error in {}: {}", joinPoint.getSignature().toShortString(), e.getMessage());
+        } catch (ModelValidationException e) {
+            log.warn("Model validation error in {}: {}", joinPoint.getSignature().toShortString(), e.getMessage());
             throw e;
         } catch (DuplicateEntryException e) {
             log.warn("Duplicate entry error in {}: {}", joinPoint.getSignature().toShortString(), e.getMessage());

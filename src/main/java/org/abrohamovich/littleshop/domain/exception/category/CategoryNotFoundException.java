@@ -1,7 +1,13 @@
 package org.abrohamovich.littleshop.domain.exception.category;
 
-public class CategoryNotFoundException extends RuntimeException {
+import org.abrohamovich.littleshop.domain.exception.ModelNotFoundException;
+
+public class CategoryNotFoundException extends ModelNotFoundException {
     public CategoryNotFoundException(String message) {
         super(message);
+    }
+
+    public CategoryNotFoundException(String message, Throwable cause) {
+        super(message, cause);
     }
 }

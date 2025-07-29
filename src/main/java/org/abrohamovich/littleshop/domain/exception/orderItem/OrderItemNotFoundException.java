@@ -1,6 +1,13 @@
 package org.abrohamovich.littleshop.domain.exception.orderItem;
 
-public class OrderItemNotFoundException extends RuntimeException {
-    public OrderItemNotFoundException(String s) {
+import org.abrohamovich.littleshop.domain.exception.ModelNotFoundException;
+
+public class OrderItemNotFoundException extends ModelNotFoundException {
+    public OrderItemNotFoundException(String message) {
+        super(message);
+    }
+
+    public OrderItemNotFoundException(String message, Throwable cause) {
+        super(message, cause);
     }
 }

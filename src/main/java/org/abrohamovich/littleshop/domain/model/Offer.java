@@ -23,7 +23,7 @@ public class Offer {
     private Supplier supplier;
     private LocalDateTime updatedAt;
 
-    public Offer(Long id, String name, double price, OfferType type, String description, Category category,
+    private Offer(Long id, String name, double price, OfferType type, String description, Category category,
                  Supplier supplier, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.name = name;
@@ -103,7 +103,7 @@ public class Offer {
         }
 
         if (!errors.isEmpty()) {
-            String errorMessage = "Offer validation failed: " + String.join(", ", errors);
+            String errorMessage = "Offer validation failed: " + String.join(", ", errors) + ".";
             throw new OfferValidationException(errorMessage);
         }
     }

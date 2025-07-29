@@ -83,7 +83,7 @@ public class Customer {
         }
 
         if (!errors.isEmpty()) {
-            String errorMessage = "Customer validation failed: " + String.join(", ", errors);
+            String errorMessage = "Customer validation failed: " + String.join(", ", errors) + ".";
             throw new CustomerValidationException(errorMessage);
         }
     }

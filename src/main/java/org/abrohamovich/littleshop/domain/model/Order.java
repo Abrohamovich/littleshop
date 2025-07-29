@@ -24,7 +24,7 @@ public class Order {
     private OrderStatus status;
     private LocalDateTime updatedAt;
 
-    public Order(Long id, Customer customer, User user, OrderStatus status,
+    private Order(Long id, Customer customer, User user, OrderStatus status,
                  List<OrderItem> items, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.customer = customer;
@@ -37,7 +37,7 @@ public class Order {
         validateSelf();
     }
 
-    public Order(Long id, LocalDateTime createdAt, OrderStatus status, LocalDateTime updatedAt) {
+    private Order(Long id, LocalDateTime createdAt, OrderStatus status, LocalDateTime updatedAt) {
         this.id = id;
         this.createdAt = createdAt;
         this.status = status;
@@ -142,7 +142,7 @@ public class Order {
         }
 
         if (!errors.isEmpty()) {
-            String errorMessage = "Order validation failed: " + String.join(", ", errors);
+            String errorMessage = "Order validation failed: " + String.join(", ", errors) + ".";
             throw new OrderValidationException(errorMessage);
         }
     }

@@ -6,8 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.abrohamovich.littleshop.domain.exception.DataPersistenceException;
 import org.abrohamovich.littleshop.domain.exception.DuplicateEntryException;
-import org.abrohamovich.littleshop.domain.exception.category.CategoryNotFoundException;
-import org.abrohamovich.littleshop.domain.exception.category.CategoryValidationException;
+import org.abrohamovich.littleshop.domain.exception.ModelNotFoundException;
+import org.abrohamovich.littleshop.domain.exception.ModelValidationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -20,14 +20,14 @@ import java.util.Map;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
-    @ExceptionHandler(CategoryNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleCategoryNotFoundException(CategoryNotFoundException ex) {
+    @ExceptionHandler(ModelNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleModelNotFoundException(ModelNotFoundException ex) {
         ErrorResponse error = new ErrorResponse(HttpStatus.NOT_FOUND.value(), ex.getMessage(), LocalDateTime.now());
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(CategoryValidationException.class)
-    public ResponseEntity<ErrorResponse> handleCategoryValidationException(CategoryValidationException ex) {
+    @ExceptionHandler(ModelValidationException.class)
+    public ResponseEntity<ErrorResponse> handleModelValidationException(ModelValidationException ex) {
         ErrorResponse error = new ErrorResponse(HttpStatus.BAD_REQUEST.value(), ex.getMessage(), LocalDateTime.now());
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
