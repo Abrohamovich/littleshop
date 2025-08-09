@@ -2,10 +2,10 @@ spring:
   application:
     name: littleshop
   datasource:
-    url: jdbc:${DB_SUBPROTOCOL}://${DB_HOST}:${DB_PORT}/${DB_NAME}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
-    driver-class-name: org.postgresql.Driver
+    url: jdbc:h2:mem:littleshopdb
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
   jpa:
     hibernate:
       ddl-auto: update
@@ -13,7 +13,7 @@ spring:
     properties:
       hibernate:
         format_sql: true
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+        dialect: org.hibernate.dialect.H2Dialect
     open-in-view: false
 logging:
   level:
