@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  littleshop_app:
+    image: littleshop-app:latest
+    ports:
+      - '8080:8080'
+    environment:
+      DB_HOST: littleshop_db
+      DB_PORT: 5432
+      DB_NAME: littleshop
+      DB_USERNAME: littleshop_user
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_SUBPROTOCOL: postgresql
+    depends_on:
+      - littleshop_db
+
+  littleshop_db:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: littleshop
+      POSTGRES_USER: littleshop_user
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - littleshop_data:/var/lib/postgresql/data
+
+volumes:
+  littleshop_data:
