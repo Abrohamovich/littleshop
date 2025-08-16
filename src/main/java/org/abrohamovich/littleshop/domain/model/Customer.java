@@ -53,9 +53,7 @@ public class Customer {
                               String address) {
         this.firstName = firstName;
         this.lastName = lastName;
-        //todo
         this.email = email;
-        //todo
         this.phone = phone;
         this.address = address;
         this.updatedAt = LocalDateTime.now();

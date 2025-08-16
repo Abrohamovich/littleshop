@@ -42,6 +42,7 @@ public class Order {
         this.createdAt = createdAt;
         this.status = status;
         this.updatedAt = updatedAt;
+        this.items = new ArrayList<>();
     }
 
     public static Order createNew(Customer customer, User user, List<OrderItem> items) {

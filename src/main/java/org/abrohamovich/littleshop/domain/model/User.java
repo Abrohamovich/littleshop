@@ -94,7 +94,6 @@ public class User {
         if (lastName == null || lastName.isBlank()) {
             errors.add("lastName cannot be null or empty");
         }
-        //todo
         if (email == null || email.isBlank()) {
             errors.add("email cannot be null or empty");
         }
@@ -104,7 +103,6 @@ public class User {
         if (role == null) {
             errors.add("role cannot be null");
         }
-        //todo
         if (phone == null || phone.isBlank()) {
             errors.add("phone cannot be null or empty");
         }

@@ -35,7 +35,7 @@ public class Category {
 
     public static Category withId(Long id, String name, String description, LocalDateTime createdAt, LocalDateTime updatedAt) {
         if (id == null) {
-            throw new IllegalArgumentException("ID cannot be null for existing category");
+            throw new IllegalArgumentException("ID cannot be null for existing category.");
         }
         return new Category(id, name, description, createdAt, updatedAt);
     }
@@ -55,7 +55,7 @@ public class Category {
             errors.add("name cannot be null or empty");
         }
         if (description != null && description.isBlank()) {
-            errors.add("description cannot be empty");
+            errors.add("description cannot empty if present");
         }
 
         if (!errors.isEmpty()) {
