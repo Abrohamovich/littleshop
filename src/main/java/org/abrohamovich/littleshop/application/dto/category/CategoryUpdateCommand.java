@@ -1,4 +1,4 @@
-package org.abrohamovich.littleshop.application.dto.cateogry;
+package org.abrohamovich.littleshop.application.dto.category;
 
 import lombok.*;
 

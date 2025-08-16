@@ -1,7 +1,7 @@
 package org.abrohamovich.littleshop.application.dto.offer;
 
 import lombok.*;
-import org.abrohamovich.littleshop.application.dto.cateogry.CategoryResponse;
+import org.abrohamovich.littleshop.application.dto.category.CategoryResponse;
 import org.abrohamovich.littleshop.application.dto.supplier.SupplierResponse;
 import org.abrohamovich.littleshop.domain.model.Offer;
 import org.abrohamovich.littleshop.domain.model.OfferType;
