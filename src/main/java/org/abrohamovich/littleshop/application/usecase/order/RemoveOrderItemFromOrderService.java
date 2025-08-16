@@ -13,12 +13,13 @@ public class RemoveOrderItemFromOrderService implements RemoveOrderItemFromOrder
     private final OrderRepositoryPort orderRepositoryPort;
 
     @Override
-    public OrderResponse remove(OrderItemRemoveFromOrderCommand command) {
-        Order order = orderRepositoryPort.findById(command.getOrderId())
-                .orElseThrow(() -> new OrderNotFoundException("Order with ID '" + command.getOrderId() + "' not found."));
+    public OrderResponse remove(Long id, OrderItemRemoveFromOrderCommand command) {
+        Order order = orderRepositoryPort.findById(id)
+                .orElseThrow(() -> new OrderNotFoundException("Order with ID '" + id + "' not found."));
 
         order.removeOrderItem(command.getOrderItemId());
+        Order savedOrder = orderRepositoryPort.save(order);
 
-        return OrderResponse.toResponse(order);
+        return OrderResponse.toResponse(savedOrder);
     }
 }

@@ -24,7 +24,8 @@ public class AddOrderItemToOrderService implements AddOrderItemToOrderUseCase {
                 .orElseThrow(() -> new OfferNotFoundException("Offer with ID '" + command.getOfferId() + "' not found."));
 
         order.addOrderItem(offer, command.getQuantity());
+        Order savedOrder = orderRepositoryPort.save(order);
 
-        return OrderResponse.toResponse(order);
+        return OrderResponse.toResponse(savedOrder);
     }
 }

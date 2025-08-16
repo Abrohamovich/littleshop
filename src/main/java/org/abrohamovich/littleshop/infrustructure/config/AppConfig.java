@@ -188,7 +188,7 @@ public class AppConfig {
 
     @Bean
     public UpdateOrderUseCase updateOrderUseCase(OrderRepositoryPort orderRepositoryPort,
-                                                 CustomerRepositoryPort customerRepositoryPort, UserRepositoryPort userRepositoryPort) {
-        return new UpdateOrderService(orderRepositoryPort, customerRepositoryPort, userRepositoryPort);
+                                                 CustomerRepositoryPort customerRepositoryPort) {
+        return new UpdateOrderService(orderRepositoryPort, customerRepositoryPort);
     }
 }

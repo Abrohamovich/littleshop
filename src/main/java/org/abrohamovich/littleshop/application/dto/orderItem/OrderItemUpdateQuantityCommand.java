@@ -8,7 +8,6 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrderItemUpdateQuantityCommand {
-    private Long orderId;
     private Long orderItemId;
     private int newQuantity;
 }

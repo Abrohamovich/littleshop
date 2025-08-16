@@ -29,7 +29,9 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Repository
@@ -80,15 +82,34 @@ public class OrderRepositoryAdapter implements OrderRepositoryPort {
                             existingEntity.setCustomer(customerJpaEntity);
                             existingEntity.setUser(userJpaEntity);
 
-                            existingEntity.getItems().clear();
+                            Set<Long> updatedOrderItemIds = order.getItems().stream()
+                                    .map(OrderItem::getId)
+                                    .filter(Objects::nonNull)
+                                    .collect(Collectors.toSet());
+
+                            existingEntity.getItems().removeIf(jpaItem -> !updatedOrderItemIds.contains(jpaItem.getId()));
+
                             for (OrderItem domainItem : order.getItems()) {
-                                OrderItemJpaEntity jpaItem = orderItemJpaMapper.toJpaEntity(domainItem);
+                                OrderItemJpaEntity jpaItem;
+
+                                if (domainItem.getId() != null) {
+                                    jpaItem = existingEntity.getItems().stream()
+                                            .filter(item -> domainItem.getId().equals(item.getId()))
+                                            .findFirst()
+                                            .orElseThrow(() -> new DataPersistenceException("Order item with ID " + domainItem.getId() + " not found for update."));
+
+                                    orderItemJpaMapper.updateJpaEntityFromDomain(domainItem, jpaItem);
+                                } else {
+                                    jpaItem = orderItemJpaMapper.toJpaEntity(domainItem);
+                                    existingEntity.addOrderItem(jpaItem);
+                                }
+
                                 OfferJpaEntity offerJpaEntity = offerRepositoryPort.findById(domainItem.getOffer().getId())
                                         .map(offerJpaMapper::toJpaEntity)
                                         .orElseThrow(() -> new OfferNotFoundException("Offer not found for OrderItem. Offer ID: " + domainItem.getOffer().getId()));
                                 jpaItem.setOffer(offerJpaEntity);
-                                existingEntity.addOrderItem(jpaItem);
                             }
+
                             return existingEntity;
                         })
                         .orElseThrow(() -> new DataPersistenceException("Order with ID '" + order.getId() + "' not found for update."));
@@ -96,48 +117,8 @@ public class OrderRepositoryAdapter implements OrderRepositoryPort {
 
             OrderJpaEntity savedEntity = springDataOrderRepository.save(orderJpaEntity);
 
-            Order resultOrder = orderJpaMapper.toDomainEntity(savedEntity);
+            return getOrder(orderJpaEntity);
 
-            Customer domainCustomer = null;
-            if (savedEntity.getCustomer() != null) {
-                domainCustomer = customerRepositoryPort.findById(savedEntity.getCustomer().getId())
-                        .orElseThrow(() -> new CustomerNotFoundException("Customer not found for order ID " + savedEntity.getId()));
-            }
-
-            User domainUser = null;
-            if (savedEntity.getUser() != null) {
-                domainUser = userRepositoryPort.findById(savedEntity.getUser().getId())
-                        .orElseThrow(() -> new UserNotFoundException("User not found for order ID " + savedEntity.getId()));
-            }
-
-            List<OrderItem> domainItems = savedEntity.getItems().stream()
-                    .map(orderItemJpaEntity -> {
-                        OrderItem domainOrderItem = orderItemJpaMapper.toDomainEntity(orderItemJpaEntity);
-                        Offer domainOffer = null;
-                        if (orderItemJpaEntity.getOffer() != null) {
-                            domainOffer = offerRepositoryPort.findById(orderItemJpaEntity.getOffer().getId())
-                                    .orElseThrow(() -> new OfferNotFoundException("Offer not found for OrderItem ID " + orderItemJpaEntity.getId()));
-                        }
-                        return OrderItem.withId(
-                                domainOrderItem.getId(),
-                                domainOffer,
-                                domainOrderItem.getQuantity(),
-                                domainOrderItem.getPriceAtTimeOfOrder(),
-                                domainOrderItem.getCreatedAt(),
-                                domainOrderItem.getUpdatedAt()
-                        );
-                    })
-                    .collect(Collectors.toList());
-
-            return Order.withId(
-                    resultOrder.getId(),
-                    domainCustomer,
-                    domainUser,
-                    resultOrder.getStatus(),
-                    domainItems,
-                    resultOrder.getCreatedAt(),
-                    resultOrder.getUpdatedAt()
-            );
         } catch (DataAccessException e) {
             throw new DataPersistenceException("Failed to save order due to data integrity violation. " + e.getMessage(), e);
         } catch (Exception e) {
@@ -149,250 +130,35 @@ public class OrderRepositoryAdapter implements OrderRepositoryPort {
     @Transactional(readOnly = true)
     public Optional<Order> findById(Long id) {
         return springDataOrderRepository.findByIdWithDetails(id)
-                .map(orderJpaEntity -> {
-                    Order order = orderJpaMapper.toDomainEntity(orderJpaEntity);
-
-                    Customer domainCustomer = null;
-                    if (orderJpaEntity.getCustomer() != null) {
-                        domainCustomer = customerRepositoryPort.findById(orderJpaEntity.getCustomer().getId())
-                                .orElseThrow(() -> new CustomerNotFoundException("Customer not found for order ID " + id));
-                    }
-
-                    User domainUser = null;
-                    if (orderJpaEntity.getUser() != null) {
-                        domainUser = userRepositoryPort.findById(orderJpaEntity.getUser().getId())
-                                .orElseThrow(() -> new UserNotFoundException("User not found for order ID " + id));
-                    }
-
-                    List<OrderItem> domainItems = orderJpaEntity.getItems().stream()
-                            .map(orderItemJpaEntity -> {
-                                OrderItem domainOrderItem = orderItemJpaMapper.toDomainEntity(orderItemJpaEntity);
-                                Offer domainOffer = null;
-                                if (orderItemJpaEntity.getOffer() != null) {
-                                    domainOffer = offerRepositoryPort.findById(orderItemJpaEntity.getOffer().getId())
-                                            .orElseThrow(() -> new OfferNotFoundException("Offer not found for OrderItem ID " + orderItemJpaEntity.getId()));
-                                }
-                                return OrderItem.withId(
-                                        domainOrderItem.getId(),
-                                        domainOffer,
-                                        domainOrderItem.getQuantity(),
-                                        domainOrderItem.getPriceAtTimeOfOrder(),
-                                        domainOrderItem.getCreatedAt(),
-                                        domainOrderItem.getUpdatedAt()
-                                );
-                            })
-                            .collect(Collectors.toList());
-
-                    return Order.withId(
-                            order.getId(),
-                            domainCustomer,
-                            domainUser,
-                            order.getStatus(),
-                            domainItems,
-                            order.getCreatedAt(),
-                            order.getUpdatedAt()
-                    );
-                });
+                .map(this::getOrder);
     }
 
     @Override
     @Transactional(readOnly = true)
     public Page<Order> findAll(Pageable pageable) {
         return springDataOrderRepository.findAllWithDetails(pageable)
-                .map(orderJpaEntity -> {
-                    Order order = orderJpaMapper.toDomainEntity(orderJpaEntity);
-
-                    Customer domainCustomer = null;
-                    if (orderJpaEntity.getCustomer() != null) {
-                        domainCustomer = customerRepositoryPort.findById(orderJpaEntity.getCustomer().getId())
-                                .orElseThrow(() -> new CustomerNotFoundException("Customer not found for order ID " + orderJpaEntity.getId()));
-                    }
-
-                    User domainUser = null;
-                    if (orderJpaEntity.getUser() != null) {
-                        domainUser = userRepositoryPort.findById(orderJpaEntity.getUser().getId())
-                                .orElseThrow(() -> new UserNotFoundException("User not found for order ID " + orderJpaEntity.getId()));
-                    }
-
-                    List<OrderItem> domainItems = orderJpaEntity.getItems().stream()
-                            .map(orderItemJpaEntity -> {
-                                OrderItem domainOrderItem = orderItemJpaMapper.toDomainEntity(orderItemJpaEntity);
-                                Offer domainOffer = null;
-                                if (orderItemJpaEntity.getOffer() != null) {
-                                    domainOffer = offerRepositoryPort.findById(orderItemJpaEntity.getOffer().getId())
-                                            .orElseThrow(() -> new OfferNotFoundException("Offer not found for OrderItem ID " + orderItemJpaEntity.getId()));
-                                }
-                                return OrderItem.withId(
-                                        domainOrderItem.getId(),
-                                        domainOffer,
-                                        domainOrderItem.getQuantity(),
-                                        domainOrderItem.getPriceAtTimeOfOrder(),
-                                        domainOrderItem.getCreatedAt(),
-                                        domainOrderItem.getUpdatedAt()
-                                );
-                            })
-                            .collect(Collectors.toList());
-
-                    return Order.withId(
-                            order.getId(),
-                            domainCustomer,
-                            domainUser,
-                            order.getStatus(),
-                            domainItems,
-                            order.getCreatedAt(),
-                            order.getUpdatedAt()
-                    );
-                });
+                .map(this::getOrder);
     }
 
     @Override
     @Transactional(readOnly = true)
     public Page<Order> findByCustomerId(Long customerId, Pageable pageable) {
         return springDataOrderRepository.findByCustomerIdWithDetails(customerId, pageable)
-                .map(orderJpaEntity -> {
-                    Order order = orderJpaMapper.toDomainEntity(orderJpaEntity);
-
-                    Customer domainCustomer = null;
-                    if (orderJpaEntity.getCustomer() != null) {
-                        domainCustomer = customerRepositoryPort.findById(orderJpaEntity.getCustomer().getId())
-                                .orElseThrow(() -> new CustomerNotFoundException("Customer not found for order ID " + orderJpaEntity.getId()));
-                    }
-
-                    User domainUser = null;
-                    if (orderJpaEntity.getUser() != null) {
-                        domainUser = userRepositoryPort.findById(orderJpaEntity.getUser().getId())
-                                .orElseThrow(() -> new UserNotFoundException("User not found for order ID " + orderJpaEntity.getId()));
-                    }
-
-                    List<OrderItem> domainItems = orderJpaEntity.getItems().stream()
-                            .map(orderItemJpaEntity -> {
-                                OrderItem domainOrderItem = orderItemJpaMapper.toDomainEntity(orderItemJpaEntity);
-                                Offer domainOffer = null;
-                                if (orderItemJpaEntity.getOffer() != null) {
-                                    domainOffer = offerRepositoryPort.findById(orderItemJpaEntity.getOffer().getId())
-                                            .orElseThrow(() -> new OfferNotFoundException("Offer not found for OrderItem ID " + orderItemJpaEntity.getId()));
-                                }
-                                return OrderItem.withId(
-                                        domainOrderItem.getId(),
-                                        domainOffer,
-                                        domainOrderItem.getQuantity(),
-                                        domainOrderItem.getPriceAtTimeOfOrder(),
-                                        domainOrderItem.getCreatedAt(),
-                                        domainOrderItem.getUpdatedAt()
-                                );
-                            })
-                            .collect(Collectors.toList());
-
-                    return Order.withId(
-                            order.getId(),
-                            domainCustomer,
-                            domainUser,
-                            order.getStatus(),
-                            domainItems,
-                            order.getCreatedAt(),
-                            order.getUpdatedAt()
-                    );
-                });
+                .map(this::getOrder);
     }
 
     @Override
     @Transactional(readOnly = true)
     public Page<Order> findByUserId(Long userId, Pageable pageable) {
         return springDataOrderRepository.findByUserIdWithDetails(userId, pageable)
-                .map(orderJpaEntity -> {
-                    Order order = orderJpaMapper.toDomainEntity(orderJpaEntity);
-
-                    Customer domainCustomer = null;
-                    if (orderJpaEntity.getCustomer() != null) {
-                        domainCustomer = customerRepositoryPort.findById(orderJpaEntity.getCustomer().getId())
-                                .orElseThrow(() -> new CustomerNotFoundException("Customer not found for order ID " + orderJpaEntity.getId()));
-                    }
-
-                    User domainUser = null;
-                    if (orderJpaEntity.getUser() != null) {
-                        domainUser = userRepositoryPort.findById(orderJpaEntity.getUser().getId())
-                                .orElseThrow(() -> new UserNotFoundException("User not found for order ID " + orderJpaEntity.getId()));
-                    }
-
-                    List<OrderItem> domainItems = orderJpaEntity.getItems().stream()
-                            .map(orderItemJpaEntity -> {
-                                OrderItem domainOrderItem = orderItemJpaMapper.toDomainEntity(orderItemJpaEntity);
-                                Offer domainOffer = null;
-                                if (orderItemJpaEntity.getOffer() != null) {
-                                    domainOffer = offerRepositoryPort.findById(orderItemJpaEntity.getOffer().getId())
-                                            .orElseThrow(() -> new OfferNotFoundException("Offer not found for OrderItem ID " + orderItemJpaEntity.getId()));
-                                }
-                                return OrderItem.withId(
-                                        domainOrderItem.getId(),
-                                        domainOffer,
-                                        domainOrderItem.getQuantity(),
-                                        domainOrderItem.getPriceAtTimeOfOrder(),
-                                        domainOrderItem.getCreatedAt(),
-                                        domainOrderItem.getUpdatedAt()
-                                );
-                            })
-                            .collect(Collectors.toList());
-
-                    return Order.withId(
-                            order.getId(),
-                            domainCustomer,
-                            domainUser,
-                            order.getStatus(),
-                            domainItems,
-                            order.getCreatedAt(),
-                            order.getUpdatedAt()
-                    );
-                });
+                .map(this::getOrder);
     }
 
     @Override
     @Transactional(readOnly = true)
     public Page<Order> findByStatus(OrderStatus status, Pageable pageable) {
         return springDataOrderRepository.findByStatusWithDetails(status, pageable)
-                .map(orderJpaEntity -> {
-                    Order order = orderJpaMapper.toDomainEntity(orderJpaEntity);
-
-                    Customer domainCustomer = null;
-                    if (orderJpaEntity.getCustomer() != null) {
-                        domainCustomer = customerRepositoryPort.findById(orderJpaEntity.getCustomer().getId())
-                                .orElseThrow(() -> new CustomerNotFoundException("Customer not found for order ID " + orderJpaEntity.getId()));
-                    }
-
-                    User domainUser = null;
-                    if (orderJpaEntity.getUser() != null) {
-                        domainUser = userRepositoryPort.findById(orderJpaEntity.getUser().getId())
-                                .orElseThrow(() -> new UserNotFoundException("User not found for order ID " + orderJpaEntity.getId()));
-                    }
-
-                    List<OrderItem> domainItems = orderJpaEntity.getItems().stream()
-                            .map(orderItemJpaEntity -> {
-                                OrderItem domainOrderItem = orderItemJpaMapper.toDomainEntity(orderItemJpaEntity);
-                                Offer domainOffer = null;
-                                if (orderItemJpaEntity.getOffer() != null) {
-                                    domainOffer = offerRepositoryPort.findById(orderItemJpaEntity.getOffer().getId())
-                                            .orElseThrow(() -> new OfferNotFoundException("Offer not found for OrderItem ID " + orderItemJpaEntity.getId()));
-                                }
-                                return OrderItem.withId(
-                                        domainOrderItem.getId(),
-                                        domainOffer,
-                                        domainOrderItem.getQuantity(),
-                                        domainOrderItem.getPriceAtTimeOfOrder(),
-                                        domainOrderItem.getCreatedAt(),
-                                        domainOrderItem.getUpdatedAt()
-                                );
-                            })
-                            .collect(Collectors.toList());
-
-                    return Order.withId(
-                            order.getId(),
-                            domainCustomer,
-                            domainUser,
-                            order.getStatus(),
-                            domainItems,
-                            order.getCreatedAt(),
-                            order.getUpdatedAt()
-                    );
-                });
+                .map(this::getOrder);
     }
 
     @Override
@@ -405,5 +171,50 @@ public class OrderRepositoryAdapter implements OrderRepositoryPort {
         } catch (Exception e) {
             throw new DataPersistenceException("Failed to delete order with ID '" + id + "'. " + e.getMessage(), e);
         }
+    }
+
+    private Order getOrder(OrderJpaEntity orderJpaEntity) {
+        Order resultOrder = orderJpaMapper.toDomainEntity(orderJpaEntity);
+
+        Customer domainCustomer = null;
+        if (orderJpaEntity.getCustomer() != null) {
+            domainCustomer = customerRepositoryPort.findById(orderJpaEntity.getCustomer().getId())
+                    .orElseThrow(() -> new CustomerNotFoundException("Customer not found for order ID " + orderJpaEntity.getId()));
+        }
+
+        User domainUser = null;
+        if (orderJpaEntity.getUser() != null) {
+            domainUser = userRepositoryPort.findById(orderJpaEntity.getUser().getId())
+                    .orElseThrow(() -> new UserNotFoundException("User not found for order ID " + orderJpaEntity.getId()));
+        }
+
+        List<OrderItem> domainItems = orderJpaEntity.getItems().stream()
+                .map(orderItemJpaEntity -> {
+                    OrderItem domainOrderItem = orderItemJpaMapper.toDomainEntity(orderItemJpaEntity);
+                    Offer domainOffer = null;
+                    if (orderItemJpaEntity.getOffer() != null) {
+                        domainOffer = offerRepositoryPort.findById(orderItemJpaEntity.getOffer().getId())
+                                .orElseThrow(() -> new OfferNotFoundException("Offer not found for OrderItem ID " + orderItemJpaEntity.getId()));
+                    }
+                    return OrderItem.withId(
+                            domainOrderItem.getId(),
+                            domainOffer,
+                            domainOrderItem.getQuantity(),
+                            domainOrderItem.getPriceAtTimeOfOrder(),
+                            domainOrderItem.getCreatedAt(),
+                            domainOrderItem.getUpdatedAt()
+                    );
+                })
+                .collect(Collectors.toList());
+
+        return Order.withId(
+                resultOrder.getId(),
+                domainCustomer,
+                domainUser,
+                resultOrder.getStatus(),
+                domainItems,
+                resultOrder.getCreatedAt(),
+                resultOrder.getUpdatedAt()
+        );
     }
 }

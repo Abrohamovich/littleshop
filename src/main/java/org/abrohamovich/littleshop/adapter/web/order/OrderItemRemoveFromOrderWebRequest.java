@@ -8,6 +8,5 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrderItemRemoveFromOrderWebRequest {
-    private Long orderId;
     private Long orderItemId;
 }

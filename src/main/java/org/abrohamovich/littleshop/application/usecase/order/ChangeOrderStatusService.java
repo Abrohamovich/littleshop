@@ -18,7 +18,8 @@ public class ChangeOrderStatusService implements ChangeOrderStatusUseCase {
                 .orElseThrow(() -> new OrderNotFoundException("Order with ID '" + orderId + "' not found."));
 
         order.changeStatus(command.getStatus());
+        Order savedOrder = orderRepositoryPort.save(order);
 
-        return OrderResponse.toResponse(order);
+        return OrderResponse.toResponse(savedOrder);
     }
 }

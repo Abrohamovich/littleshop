@@ -18,21 +18,17 @@ import org.abrohamovich.littleshop.domain.model.User;
 public class UpdateOrderService implements UpdateOrderUseCase {
     private final OrderRepositoryPort orderRepositoryPort;
     private final CustomerRepositoryPort customerRepositoryPort;
-    private final UserRepositoryPort userRepositoryPort;
 
     @Override
     public OrderResponse update(Long orderId, OrderUpdateCommand command) {
-        Order existingOrder = orderRepositoryPort.findById(orderId)
+        Order order = orderRepositoryPort.findById(orderId)
                 .orElseThrow(() -> new OrderNotFoundException("Order with ID '" + orderId + "' not found for update."));
         Customer customer = customerRepositoryPort.findById(command.getCustomerId())
                 .orElseThrow(() -> new CustomerNotFoundException("Customer with ID '" + command.getCustomerId() + "' not found."));
-        User user = userRepositoryPort.findById(command.getUserId())
-                .orElseThrow(() -> new UserNotFoundException("User with ID '" + command.getUserId() + "' not found."));
 
-        existingOrder.updateDetails(customer, user);
+        order.updateDetails(customer);
+        Order savedOrder = orderRepositoryPort.save(order);
 
-        Order updatedOrder = orderRepositoryPort.save(existingOrder);
-
-        return OrderResponse.toResponse(updatedOrder);
+        return OrderResponse.toResponse(savedOrder);
     }
 }

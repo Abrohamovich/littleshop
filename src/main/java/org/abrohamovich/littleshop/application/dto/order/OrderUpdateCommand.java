@@ -9,5 +9,4 @@ import lombok.*;
 @AllArgsConstructor
 public class OrderUpdateCommand {
     private Long customerId;
-    private Long userId;
 }

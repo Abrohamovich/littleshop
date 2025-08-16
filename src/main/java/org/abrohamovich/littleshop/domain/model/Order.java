@@ -62,20 +62,18 @@ public class Order {
         return new Order(id, createdAt, status, updatedAt);
     }
 
-    public void updateDetails(Customer customer, User user) {
+    public void updateDetails(Customer customer) {
         this.customer = customer;
-        this.user = user;
         this.updatedAt = LocalDateTime.now();
 
         validateSelf();
     }
 
-    public OrderItem addOrderItem(Offer offer, int quantity) {
+    public void addOrderItem(Offer offer, int quantity) {
         OrderItem newItem = OrderItem.createNew(offer, quantity);
         this.items.add(newItem);
         this.updatedAt = LocalDateTime.now();
         validateSelf();
-        return newItem;
     }
 
     public void updateOrderItemQuantity(Long orderItemId, int newQuantity) {
