@@ -1,6 +1,6 @@
 package org.abrohamovich.littleshop.application.port.in.category;
 
-import org.abrohamovich.littleshop.application.dto.cateogry.CategoryResponse;
+import org.abrohamovich.littleshop.application.dto.category.CategoryResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

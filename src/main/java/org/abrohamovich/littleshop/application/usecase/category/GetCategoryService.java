@@ -1,7 +1,7 @@
 package org.abrohamovich.littleshop.application.usecase.category;
 
 import lombok.RequiredArgsConstructor;
-import org.abrohamovich.littleshop.application.dto.cateogry.CategoryResponse;
+import org.abrohamovich.littleshop.application.dto.category.CategoryResponse;
 import org.abrohamovich.littleshop.application.port.in.category.GetCategoryUseCase;
 import org.abrohamovich.littleshop.application.port.out.persistence.CategoryRepositoryPort;
 import org.abrohamovich.littleshop.domain.exception.category.CategoryNotFoundException;

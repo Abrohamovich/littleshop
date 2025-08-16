@@ -1,8 +1,8 @@
 package org.abrohamovich.littleshop.application.usecase.category;
 
 import lombok.RequiredArgsConstructor;
-import org.abrohamovich.littleshop.application.dto.cateogry.CategoryCreateCommand;
-import org.abrohamovich.littleshop.application.dto.cateogry.CategoryResponse;
+import org.abrohamovich.littleshop.application.dto.category.CategoryCreateCommand;
+import org.abrohamovich.littleshop.application.dto.category.CategoryResponse;
 import org.abrohamovich.littleshop.application.port.in.category.CreateCategoryUseCase;
 import org.abrohamovich.littleshop.application.port.out.persistence.CategoryRepositoryPort;
 import org.abrohamovich.littleshop.domain.exception.DuplicateEntryException;

@@ -1,8 +1,8 @@
 package org.abrohamovich.littleshop.adapter.web.category;
 
-import org.abrohamovich.littleshop.application.dto.cateogry.CategoryCreateCommand;
-import org.abrohamovich.littleshop.application.dto.cateogry.CategoryResponse;
-import org.abrohamovich.littleshop.application.dto.cateogry.CategoryUpdateCommand;
+import org.abrohamovich.littleshop.application.dto.category.CategoryCreateCommand;
+import org.abrohamovich.littleshop.application.dto.category.CategoryResponse;
+import org.abrohamovich.littleshop.application.dto.category.CategoryUpdateCommand;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
