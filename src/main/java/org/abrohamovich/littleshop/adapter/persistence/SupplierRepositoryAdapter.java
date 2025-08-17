@@ -25,17 +25,7 @@ public class SupplierRepositoryAdapter implements SupplierRepositoryPort {
     @Transactional
     public Supplier save(Supplier supplier) {
         try {
-            SupplierJpaEntity entity;
-            if (supplier.getId() == null) {
-                entity = supplierJpaMapper.toJpaEntity(supplier);
-            } else {
-                entity = springDataSupplierRepository.findById(supplier.getId())
-                        .map(jpaEntity -> {
-                            supplierJpaMapper.updateJpaEntityFromDomain(supplier, jpaEntity);
-                            return jpaEntity;
-                        })
-                        .orElseThrow(() -> new DataPersistenceException("Supplier with ID '" + supplier.getId() + "' not found for update."));
-            }
+            SupplierJpaEntity entity = supplierJpaMapper.toJpaEntity(supplier);
             SupplierJpaEntity savedEntity = springDataSupplierRepository.save(entity);
             return supplierJpaMapper.toDomainEntity(savedEntity);
         } catch (DataAccessException e) {
