@@ -38,4 +38,8 @@ public class OrderResponse {
                 .updatedAt(order.getUpdatedAt())
                 .build();
     }
+
+    public double getTotalPrice() {
+        return items.stream().mapToDouble(item -> item.getQuantity() * item.getPriceAtTimeOfOrder()).sum();
+    }
 }
