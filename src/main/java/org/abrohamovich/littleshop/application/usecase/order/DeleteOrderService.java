@@ -3,7 +3,6 @@ package org.abrohamovich.littleshop.application.usecase.order;
 import lombok.RequiredArgsConstructor;
 import org.abrohamovich.littleshop.application.port.in.order.DeleteOrderUseCase;
 import org.abrohamovich.littleshop.application.port.out.persistence.OrderRepositoryPort;
-import org.abrohamovich.littleshop.domain.exception.customer.CustomerNotFoundException;
 import org.abrohamovich.littleshop.domain.exception.order.OrderNotFoundException;
 
 @RequiredArgsConstructor

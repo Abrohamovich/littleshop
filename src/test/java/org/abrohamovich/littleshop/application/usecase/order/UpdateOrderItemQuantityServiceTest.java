@@ -1,7 +1,6 @@
 package org.abrohamovich.littleshop.application.usecase.order;
 
 import org.abrohamovich.littleshop.application.dto.order.OrderResponse;
-import org.abrohamovich.littleshop.application.dto.orderItem.OrderItemRemoveFromOrderCommand;
 import org.abrohamovich.littleshop.application.dto.orderItem.OrderItemUpdateQuantityCommand;
 import org.abrohamovich.littleshop.application.port.out.persistence.OrderRepositoryPort;
 import org.abrohamovich.littleshop.domain.exception.order.OrderNotFoundException;
@@ -22,16 +21,15 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class UpdateOrderItemQuantityServiceTest {
+    private final Long orderId = 1L;
     @Mock
     private OrderRepositoryPort orderRepositoryPort;
     @InjectMocks
     private UpdateOrderItemQuantityService updateOrderItemQuantityService;
-
     private Customer testCustomer;
     private User testUser;
     private Offer testOffer;
     private OrderItemUpdateQuantityCommand command;
-    private final Long orderId = 1L;
     private Order testOrder;
 
     @BeforeEach

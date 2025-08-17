@@ -17,19 +17,16 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class ChangeOrderStatusServiceTest {
+    private final Long orderId = 1L;
     @Mock
     private OrderRepositoryPort orderRepositoryPort;
     @InjectMocks
     private ChangeOrderStatusService changeOrderStatusService;
-
-    private final Long orderId = 1L;
     private Order testOrder;
     private OrderItem testOrderItem;
     private Category testCategory;

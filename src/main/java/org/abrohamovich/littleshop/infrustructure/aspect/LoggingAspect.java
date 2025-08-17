@@ -12,10 +12,12 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class LoggingAspect {
     @Pointcut("execution(* org.abrohamovich.littleshop.application.usecase..*(..))")
-    public void applicationLayerMethods() {}
+    public void applicationLayerMethods() {
+    }
 
     @Pointcut("execution(* org.abrohamovich.littleshop.adapter.persistence..*(..))")
-    public void persistenceLayerMethods() {}
+    public void persistenceLayerMethods() {
+    }
 
     @Around("applicationLayerMethods() || persistenceLayerMethods()")
     public Object logMethodExecution(ProceedingJoinPoint joinPoint) throws Throwable {

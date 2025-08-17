@@ -1,10 +1,8 @@
 package org.abrohamovich.littleshop.adapter.web.order;
 
 import jakarta.validation.Valid;
-import lombok.*;
-import org.abrohamovich.littleshop.adapter.web.offer.OfferWebResponse;
+import lombok.RequiredArgsConstructor;
 import org.abrohamovich.littleshop.application.dto.PageResponse;
-import org.abrohamovich.littleshop.application.dto.offer.OfferResponse;
 import org.abrohamovich.littleshop.application.dto.order.OrderCreateCommand;
 import org.abrohamovich.littleshop.application.dto.order.OrderResponse;
 import org.abrohamovich.littleshop.application.dto.order.OrderUpdateCommand;
@@ -58,9 +56,9 @@ public class OrderRestController {
         Pageable pageable = PageRequest.of(page, size);
         Page<OrderResponse> ordersPage;
 
-        if(customerId != null && customerId > 0) {
+        if (customerId != null && customerId > 0) {
             ordersPage = getOrderUseCase.findByCustomerId(customerId, pageable);
-        } else if(userId != null && userId > 0) {
+        } else if (userId != null && userId > 0) {
             ordersPage = getOrderUseCase.findByUserId(userId, pageable);
         } else {
             ordersPage = getOrderUseCase.findAll(pageable);

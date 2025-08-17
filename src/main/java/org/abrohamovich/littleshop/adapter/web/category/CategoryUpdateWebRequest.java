@@ -1,8 +1,8 @@
 package org.abrohamovich.littleshop.adapter.web.category;
 
-import lombok.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.*;
 
 @Getter
 @Setter

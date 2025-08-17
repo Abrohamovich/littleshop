@@ -131,7 +131,7 @@ public class AppConfig {
     @Bean
     public CreateOfferUseCase createOfferUseCase(OfferRepositoryPort offerRepositoryPort, CategoryRepositoryPort categoryRepositoryPort,
                                                  SupplierRepositoryPort supplierRepositoryPort) {
-        return new CreateOfferService(offerRepositoryPort,  categoryRepositoryPort, supplierRepositoryPort);
+        return new CreateOfferService(offerRepositoryPort, categoryRepositoryPort, supplierRepositoryPort);
     }
 
     @Bean
@@ -142,7 +142,7 @@ public class AppConfig {
     @Bean
     public UpdateOfferUseCase updateOfferUseCase(OfferRepositoryPort offerRepositoryPort, CategoryRepositoryPort categoryRepositoryPort,
                                                  SupplierRepositoryPort supplierRepositoryPort) {
-        return new UpdateOfferService(offerRepositoryPort,  categoryRepositoryPort, supplierRepositoryPort);
+        return new UpdateOfferService(offerRepositoryPort, categoryRepositoryPort, supplierRepositoryPort);
     }
 
     @Bean

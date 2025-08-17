@@ -1,7 +1,6 @@
 package org.abrohamovich.littleshop.adapter.persistence;
 
 import lombok.RequiredArgsConstructor;
-import org.abrohamovich.littleshop.adapter.persistence.jpa.entity.CategoryJpaEntity;
 import org.abrohamovich.littleshop.adapter.persistence.jpa.entity.SupplierJpaEntity;
 import org.abrohamovich.littleshop.adapter.persistence.jpa.repository.SpringDataSupplierRepository;
 import org.abrohamovich.littleshop.adapter.persistence.mapper.SupplierJpaMapper;
@@ -19,7 +18,7 @@ import java.util.Optional;
 @Repository
 @RequiredArgsConstructor
 public class SupplierRepositoryAdapter implements SupplierRepositoryPort {
-    private final SpringDataSupplierRepository  springDataSupplierRepository;
+    private final SpringDataSupplierRepository springDataSupplierRepository;
     private final SupplierJpaMapper supplierJpaMapper;
 
     @Override

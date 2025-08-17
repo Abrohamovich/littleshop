@@ -14,14 +14,14 @@ import java.util.List;
 @ToString
 public class OrderItem {
     private final Long id;
-    private Offer offer;
     private final double priceAtTimeOfOrder;
     private final LocalDateTime createdAt;
+    private Offer offer;
     private int quantity;
     private LocalDateTime updatedAt;
 
     private OrderItem(Long id, Offer offer, int quantity, double priceAtTimeOfOrder,
-                     LocalDateTime createdAt, LocalDateTime updatedAt) {
+                      LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.offer = offer;
         this.quantity = quantity;

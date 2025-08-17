@@ -3,7 +3,6 @@ package org.abrohamovich.littleshop.adapter.persistence.mapper;
 import org.abrohamovich.littleshop.adapter.persistence.jpa.entity.OrderItemJpaEntity;
 import org.abrohamovich.littleshop.domain.model.OrderItem;
 import org.mapstruct.*;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public abstract class OrderItemJpaMapper {

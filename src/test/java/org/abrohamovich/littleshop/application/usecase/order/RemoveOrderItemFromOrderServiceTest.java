@@ -21,16 +21,15 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class RemoveOrderItemFromOrderServiceTest {
+    private final Long orderId = 1L;
     @Mock
     private OrderRepositoryPort orderRepositoryPort;
     @InjectMocks
-    private  RemoveOrderItemFromOrderService removeOrderItemFromOrderService;
-
+    private RemoveOrderItemFromOrderService removeOrderItemFromOrderService;
     private Customer testCustomer;
     private User testUser;
     private Offer testOffer;
     private OrderItemRemoveFromOrderCommand removeCommand;
-    private final Long orderId = 1L;
     private Order testOrder;
 
     @BeforeEach
@@ -67,7 +66,9 @@ class RemoveOrderItemFromOrderServiceTest {
         when(orderRepositoryPort.findById(orderId)).thenReturn(Optional.empty());
 
         Exception ex = assertThrows(OrderNotFoundException.class,
-                () -> {removeOrderItemFromOrderService.remove(orderId, removeCommand);});
+                () -> {
+                    removeOrderItemFromOrderService.remove(orderId, removeCommand);
+                });
 
         assertTrue(ex.getMessage().contains("Order with ID '" + orderId + "' not found."));
         verify(orderRepositoryPort, times(1)).findById(orderId);

@@ -7,7 +7,6 @@ import org.abrohamovich.littleshop.application.port.in.order.UpdateOrderItemQuan
 import org.abrohamovich.littleshop.application.port.out.persistence.OrderRepositoryPort;
 import org.abrohamovich.littleshop.domain.exception.order.OrderNotFoundException;
 import org.abrohamovich.littleshop.domain.model.Order;
-import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 public class UpdateOrderItemQuantityService implements UpdateOrderItemQuantityUseCase {

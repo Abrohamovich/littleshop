@@ -1,7 +1,5 @@
 package org.abrohamovich.littleshop.application.usecase.order;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import org.abrohamovich.littleshop.application.dto.order.OrderResponse;
 import org.abrohamovich.littleshop.application.dto.orderItem.OrderItemAddToOrderCommand;
 import org.abrohamovich.littleshop.application.port.out.persistence.OfferRepositoryPort;
@@ -20,29 +18,24 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class AddOrderItemToOrderServiceTest {
-
+    private final Long orderId = 1L;
+    private final Long initialOfferId = 10L;
+    private final Long newOfferId = 20L;
     @Mock
     private OrderRepositoryPort orderRepositoryPort;
     @Mock
     private OfferRepositoryPort offerRepositoryPort;
-
     @InjectMocks
     private AddOrderItemToOrderService addOrderItemToOrderService;
-
     private Order testOrder;
     private Offer initialOffer;
     private Offer newOffer;
     private OrderItemAddToOrderCommand command;
-    private final Long orderId = 1L;
-    private final Long initialOfferId = 10L;
-    private final Long newOfferId = 20L;
 
     @BeforeEach
     void setUp() {

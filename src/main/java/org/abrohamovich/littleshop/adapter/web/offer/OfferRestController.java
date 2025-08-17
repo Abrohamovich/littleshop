@@ -53,12 +53,12 @@ public class OfferRestController {
             offersPage = getOfferUseCase.findByCategoryId(categoryId, pageable);
         } else if (supplierId != null && supplierId > 0) {
             offersPage = getOfferUseCase.findBySupplierId(supplierId, pageable);
-        }  else if (priceGreaterEqual != null && priceLessEqual != null
-                && priceGreaterEqual > 0 && priceLessEqual > 0 ) {
+        } else if (priceGreaterEqual != null && priceLessEqual != null
+                && priceGreaterEqual > 0 && priceLessEqual > 0) {
             offersPage = getOfferUseCase.findByPriceIsGreaterThanEqualAndPriceLessThanEqual(priceGreaterEqual, priceLessEqual, pageable);
         } else if (priceGreaterEqual != null && priceGreaterEqual > 0) {
             offersPage = getOfferUseCase.findByPriceIsGreaterThanEqual(priceGreaterEqual, pageable);
-        } else if (priceLessEqual != null && priceLessEqual > 0 ) {
+        } else if (priceLessEqual != null && priceLessEqual > 0) {
             offersPage = getOfferUseCase.findByPriceIsLessThanEqual(priceLessEqual, pageable);
         } else {
             offersPage = getOfferUseCase.findAll(pageable);

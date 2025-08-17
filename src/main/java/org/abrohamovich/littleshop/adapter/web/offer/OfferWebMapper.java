@@ -8,6 +8,8 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface OfferWebMapper {
     OfferCreateCommand toCreateCommand(OfferCreateWebRequest request);
+
     OfferUpdateCommand toUpdateCommand(OfferUpdateWebRequest request);
+
     OfferWebResponse toWebResponse(OfferResponse response);
 }

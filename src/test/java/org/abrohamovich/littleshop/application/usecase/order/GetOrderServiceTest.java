@@ -3,16 +3,7 @@ package org.abrohamovich.littleshop.application.usecase.order;
 import org.abrohamovich.littleshop.application.dto.order.OrderResponse;
 import org.abrohamovich.littleshop.application.port.out.persistence.OrderRepositoryPort;
 import org.abrohamovich.littleshop.domain.exception.order.OrderNotFoundException;
-import org.abrohamovich.littleshop.domain.model.Customer;
-import org.abrohamovich.littleshop.domain.model.Order;
-import org.abrohamovich.littleshop.domain.model.OrderItem;
-import org.abrohamovich.littleshop.domain.model.OrderStatus;
-import org.abrohamovich.littleshop.domain.model.User;
-import org.abrohamovich.littleshop.domain.model.Offer;
-import org.abrohamovich.littleshop.domain.model.Category;
-import org.abrohamovich.littleshop.domain.model.Supplier;
-import org.abrohamovich.littleshop.domain.model.OfferType;
-import org.abrohamovich.littleshop.domain.model.UserRole;
+import org.abrohamovich.littleshop.domain.model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -29,23 +20,19 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class GetOrderServiceTest {
+    private final Long orderId = 1L;
+    private final Long customerId = 10L;
+    private final Long userId = 20L;
     @Mock
     private OrderRepositoryPort orderRepositoryPort;
     @InjectMocks
     private GetOrderService getOrderService;
-
-    private final Long orderId = 1L;
-    private final Long customerId = 10L;
-    private final Long userId = 20L;
     private Order testOrder;
     private Pageable pageable;
 

@@ -6,16 +6,7 @@ import org.abrohamovich.littleshop.application.port.out.persistence.CustomerRepo
 import org.abrohamovich.littleshop.application.port.out.persistence.OrderRepositoryPort;
 import org.abrohamovich.littleshop.domain.exception.customer.CustomerNotFoundException;
 import org.abrohamovich.littleshop.domain.exception.order.OrderNotFoundException;
-import org.abrohamovich.littleshop.domain.model.Customer;
-import org.abrohamovich.littleshop.domain.model.Order;
-import org.abrohamovich.littleshop.domain.model.OrderItem;
-import org.abrohamovich.littleshop.domain.model.OrderStatus;
-import org.abrohamovich.littleshop.domain.model.Offer;
-import org.abrohamovich.littleshop.domain.model.User;
-import org.abrohamovich.littleshop.domain.model.UserRole;
-import org.abrohamovich.littleshop.domain.model.Category;
-import org.abrohamovich.littleshop.domain.model.Supplier;
-import org.abrohamovich.littleshop.domain.model.OfferType;
+import org.abrohamovich.littleshop.domain.model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,23 +18,20 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class UpdateOrderServiceTest {
+    private final Long orderId = 1L;
+    private final Long customerId = 10L;
+    private final Long newCustomerId = 11L;
     @Mock
     private OrderRepositoryPort orderRepositoryPort;
     @Mock
     private CustomerRepositoryPort customerRepositoryPort;
     @InjectMocks
     private UpdateOrderService updateOrderService;
-
-    private final Long orderId = 1L;
-    private final Long customerId = 10L;
-    private final Long newCustomerId = 11L;
     private Order testOrder;
     private Customer oldCustomer;
     private Customer newCustomer;

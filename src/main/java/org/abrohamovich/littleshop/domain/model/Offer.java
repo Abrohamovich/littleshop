@@ -24,7 +24,7 @@ public class Offer {
     private LocalDateTime updatedAt;
 
     private Offer(Long id, String name, double price, OfferType type, String description, Category category,
-                 Supplier supplier, LocalDateTime createdAt, LocalDateTime updatedAt) {
+                  Supplier supplier, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.name = name;
         this.price = price;

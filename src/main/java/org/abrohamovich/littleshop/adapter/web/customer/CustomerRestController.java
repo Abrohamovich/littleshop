@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("api/v1/customers")
 @RequiredArgsConstructor
 public class CustomerRestController {
-    private final CreateCustomerUseCase  createCustomerUseCase;
+    private final CreateCustomerUseCase createCustomerUseCase;
     private final GetCustomerUseCase getCustomerUseCase;
     private final UpdateCustomerUseCase updateCustomerUseCase;
     private final DeleteCustomerUseCase deleteCustomerUseCase;
@@ -67,13 +67,13 @@ public class CustomerRestController {
 
     @PutMapping("/{id}")
     public ResponseEntity<CustomerWebResponse> update(@PathVariable Long id, @Valid @RequestBody CustomerUpdateWebRequest customerUpdateWebRequest) {
-        CustomerUpdateCommand customerUpdateCommand =  customerWebMapper.toUpdateCommand(customerUpdateWebRequest);
+        CustomerUpdateCommand customerUpdateCommand = customerWebMapper.toUpdateCommand(customerUpdateWebRequest);
         CustomerResponse response = updateCustomerUseCase.update(id, customerUpdateCommand);
         return new ResponseEntity<>(customerWebMapper.toWebResponse(response), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete (@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         deleteCustomerUseCase.deleteById(id);
         return ResponseEntity.noContent().build();
     }

@@ -4,6 +4,7 @@ import org.abrohamovich.littleshop.domain.exception.user.UserValidationException
 import org.abrohamovich.littleshop.util.PasswordHasher;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
+
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;

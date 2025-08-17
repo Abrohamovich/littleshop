@@ -22,13 +22,14 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class CreateOrderServiceTest {
+    private final Long customerId = 1L;
+    private final Long userId = 2L;
+    private final Long offerId = 10L;
     @Mock
     private OrderRepositoryPort orderRepositoryPort;
     @Mock
@@ -39,14 +40,10 @@ public class CreateOrderServiceTest {
     private UserRepositoryPort userRepositoryPort;
     @InjectMocks
     private CreateOrderService createOrderService;
-
     private OrderCreateCommand command;
     private Customer testCustomer;
     private User testUser;
     private Offer testOffer;
-    private final Long customerId = 1L;
-    private final Long userId = 2L;
-    private final Long offerId = 10L;
 
     @BeforeEach
     void setUp() {

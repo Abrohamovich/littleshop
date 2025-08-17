@@ -3,7 +3,9 @@ package org.abrohamovich.littleshop.domain.model;
 import org.abrohamovich.littleshop.domain.exception.supplier.SupplierValidationException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
+
 import java.time.LocalDateTime;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class SupplierTest {

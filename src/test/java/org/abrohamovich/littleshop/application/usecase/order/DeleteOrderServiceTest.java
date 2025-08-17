@@ -2,16 +2,7 @@ package org.abrohamovich.littleshop.application.usecase.order;
 
 import org.abrohamovich.littleshop.application.port.out.persistence.OrderRepositoryPort;
 import org.abrohamovich.littleshop.domain.exception.order.OrderNotFoundException;
-import org.abrohamovich.littleshop.domain.model.Customer;
-import org.abrohamovich.littleshop.domain.model.Order;
-import org.abrohamovich.littleshop.domain.model.OrderItem;
-import org.abrohamovich.littleshop.domain.model.OrderStatus;
-import org.abrohamovich.littleshop.domain.model.Offer;
-import org.abrohamovich.littleshop.domain.model.User;
-import org.abrohamovich.littleshop.domain.model.UserRole;
-import org.abrohamovich.littleshop.domain.model.Category;
-import org.abrohamovich.littleshop.domain.model.Supplier;
-import org.abrohamovich.littleshop.domain.model.OfferType;
+import org.abrohamovich.littleshop.domain.model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,12 +19,11 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class DeleteOrderServiceTest {
+    private final Long orderId = 1L;
     @Mock
     private OrderRepositoryPort orderRepositoryPort;
     @InjectMocks
     private DeleteOrderService deleteOrderService;
-
-    private final Long orderId = 1L;
     private Order testOrder;
 
     @BeforeEach

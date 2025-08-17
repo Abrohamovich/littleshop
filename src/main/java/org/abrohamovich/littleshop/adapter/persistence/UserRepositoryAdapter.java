@@ -1,7 +1,6 @@
 package org.abrohamovich.littleshop.adapter.persistence;
 
 import lombok.RequiredArgsConstructor;
-import org.abrohamovich.littleshop.adapter.persistence.jpa.entity.CategoryJpaEntity;
 import org.abrohamovich.littleshop.adapter.persistence.jpa.entity.UserJpaEntity;
 import org.abrohamovich.littleshop.adapter.persistence.jpa.repository.SpringDataUserRepository;
 import org.abrohamovich.littleshop.adapter.persistence.mapper.UserJpaMapper;

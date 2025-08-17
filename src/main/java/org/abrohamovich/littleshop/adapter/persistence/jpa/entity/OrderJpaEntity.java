@@ -1,14 +1,10 @@
 package org.abrohamovich.littleshop.adapter.persistence.jpa.entity;
 
 import jakarta.persistence.*;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.abrohamovich.littleshop.domain.model.Customer;
-import org.abrohamovich.littleshop.domain.model.OrderItem;
 import org.abrohamovich.littleshop.domain.model.OrderStatus;
-import org.abrohamovich.littleshop.domain.model.User;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -42,10 +38,5 @@ public class OrderJpaEntity {
     public void addOrderItem(OrderItemJpaEntity item) {
         this.items.add(item);
         item.setOrder(this);
-    }
-
-    public void removeOrderItem(OrderItemJpaEntity item) {
-        this.items.remove(item);
-        item.setOrder(null);
     }
 }
