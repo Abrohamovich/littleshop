@@ -1,7 +1,6 @@
 package org.abrohamovich.littleshop.adapter.persistence;
 
 import lombok.RequiredArgsConstructor;
-import org.abrohamovich.littleshop.adapter.persistence.jpa.entity.CategoryJpaEntity;
 import org.abrohamovich.littleshop.adapter.persistence.jpa.entity.SupplierJpaEntity;
 import org.abrohamovich.littleshop.adapter.persistence.jpa.repository.SpringDataSupplierRepository;
 import org.abrohamovich.littleshop.adapter.persistence.mapper.SupplierJpaMapper;
@@ -19,24 +18,14 @@ import java.util.Optional;
 @Repository
 @RequiredArgsConstructor
 public class SupplierRepositoryAdapter implements SupplierRepositoryPort {
-    private final SpringDataSupplierRepository  springDataSupplierRepository;
+    private final SpringDataSupplierRepository springDataSupplierRepository;
     private final SupplierJpaMapper supplierJpaMapper;
 
     @Override
     @Transactional
     public Supplier save(Supplier supplier) {
         try {
-            SupplierJpaEntity entity;
-            if (supplier.getId() == null) {
-                entity = supplierJpaMapper.toJpaEntity(supplier);
-            } else {
-                entity = springDataSupplierRepository.findById(supplier.getId())
-                        .map(jpaEntity -> {
-                            supplierJpaMapper.updateJpaEntityFromDomain(supplier, jpaEntity);
-                            return jpaEntity;
-                        })
-                        .orElseThrow(() -> new DataPersistenceException("Supplier with ID '" + supplier.getId() + "' not found for update."));
-            }
+            SupplierJpaEntity entity = supplierJpaMapper.toJpaEntity(supplier);
             SupplierJpaEntity savedEntity = springDataSupplierRepository.save(entity);
             return supplierJpaMapper.toDomainEntity(savedEntity);
         } catch (DataAccessException e) {

@@ -25,7 +25,7 @@ public class CustomerRepositoryAdapter implements CustomerRepositoryPort {
         try {
             CustomerJpaEntity customerJpaEntity = customerJpaMapper.toJpaEntity(customer);
             CustomerJpaEntity savedEntity = springDataCustomerRepository.save(customerJpaEntity);
-            return   customerJpaMapper.toDomainEntity(savedEntity);
+            return customerJpaMapper.toDomainEntity(savedEntity);
         } catch (DataAccessException e) {
             throw new DataPersistenceException("Failed to save customer due to data integrity violation. " + e.getMessage(), e);
         } catch (Exception e) {

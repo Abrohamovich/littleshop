@@ -2,7 +2,6 @@ package org.abrohamovich.littleshop.adapter.persistence.jpa.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.abrohamovich.littleshop.domain.model.Offer;
 
 import java.time.LocalDateTime;
 

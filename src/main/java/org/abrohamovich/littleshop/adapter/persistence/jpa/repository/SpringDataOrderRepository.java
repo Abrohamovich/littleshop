@@ -5,12 +5,12 @@ import org.abrohamovich.littleshop.domain.model.OrderStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query; // Импортируйте Query
-import org.springframework.data.repository.query.Param; // Импортируйте Param
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
 
-public interface SpringDataOrderRepository extends JpaRepository<OrderJpaEntity,Long> {
+public interface SpringDataOrderRepository extends JpaRepository<OrderJpaEntity, Long> {
 
     @Query("SELECT o FROM OrderJpaEntity o " +
             "LEFT JOIN FETCH o.customer c " +
@@ -56,6 +56,8 @@ public interface SpringDataOrderRepository extends JpaRepository<OrderJpaEntity,
     Page<OrderJpaEntity> findByStatusWithDetails(@Param("status") OrderStatus status, Pageable pageable);
 
     Page<OrderJpaEntity> findByCustomerId(Long customerId, Pageable pageable);
+
     Page<OrderJpaEntity> findByUserId(Long userId, Pageable pageable);
+
     Page<OrderJpaEntity> findByStatus(OrderStatus status, Pageable pageable);
 }

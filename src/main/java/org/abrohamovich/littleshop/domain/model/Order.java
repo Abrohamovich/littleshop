@@ -17,15 +17,15 @@ import java.util.Objects;
 @ToString
 public class Order {
     private final Long id;
-    private List<OrderItem> items;
     private final LocalDateTime createdAt;
+    private List<OrderItem> items;
     private Customer customer;
     private User user;
     private OrderStatus status;
     private LocalDateTime updatedAt;
 
     private Order(Long id, Customer customer, User user, OrderStatus status,
-                 List<OrderItem> items, LocalDateTime createdAt, LocalDateTime updatedAt) {
+                  List<OrderItem> items, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.customer = customer;
         this.user = user;

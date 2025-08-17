@@ -5,7 +5,8 @@ import at.favre.lib.crypto.bcrypt.BCrypt;
 public class PasswordHasher {
     private static final int BCRYPT_COST = 12;
 
-    private PasswordHasher() {}
+    private PasswordHasher() {
+    }
 
     public static String hashPassword(String plainPassword) {
         return BCrypt.withDefaults().hashToString(BCRYPT_COST, plainPassword.toCharArray());

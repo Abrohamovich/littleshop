@@ -7,9 +7,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.mock;
 
 public class OrderResponseTest {
     @Test
@@ -21,7 +18,7 @@ public class OrderResponseTest {
                 "address", "description", createdAt, updatedAt);
         Category category = Category.withId(1L, "name", "description", createdAt, updatedAt);
         Customer customer = Customer.withId(1L, "firstName", "lastName", "email", "phone", "address", createdAt, updatedAt);
-        User user = User.withId(1L, "firstName", "lastName", "email", "password", UserRole.WORKER, "phone",  createdAt, updatedAt);
+        User user = User.withId(1L, "firstName", "lastName", "email", "password", UserRole.WORKER, "phone", createdAt, updatedAt);
         Offer offer = Offer.withId(1L, "name", 4.4, OfferType.PRODUCT, "description",
                 category, supplier, createdAt, updatedAt);
         int quantity = 3;

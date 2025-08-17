@@ -73,7 +73,7 @@ public class UserRestController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete (@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         deleteUserUseCase.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }

@@ -11,6 +11,8 @@ import java.util.Optional;
 @Repository
 public interface SpringDataCategoryRepository extends JpaRepository<CategoryJpaEntity, Long> {
     Optional<CategoryJpaEntity> findByName(String name);
+
     Page<CategoryJpaEntity> findByNameContainingIgnoreCase(String name, Pageable pageable);
+
     Page<CategoryJpaEntity> findByDescriptionContainingIgnoreCase(String description, Pageable pageable);
 }

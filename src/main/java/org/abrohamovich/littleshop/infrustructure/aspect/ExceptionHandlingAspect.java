@@ -16,10 +16,12 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class ExceptionHandlingAspect {
     @Pointcut("execution(* org.abrohamovich.littleshop.application.usecase..*(..))")
-    public void useCaseMethods() {}
+    public void useCaseMethods() {
+    }
 
     @Pointcut("execution(* org.abrohamovich.littleshop.adapter.persistence..*(..))")
-    public void persistenceAdapterMethods() {}
+    public void persistenceAdapterMethods() {
+    }
 
     @Around("useCaseMethods() || persistenceAdapterMethods()")
     public Object handleServiceExceptions(ProceedingJoinPoint joinPoint) throws Throwable {

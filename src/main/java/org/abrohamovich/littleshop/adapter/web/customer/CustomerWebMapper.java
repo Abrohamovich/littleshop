@@ -8,6 +8,8 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface CustomerWebMapper {
     CustomerCreateCommand toCreateCommand(CustomerCreateWebRequest request);
+
     CustomerUpdateCommand toUpdateCommand(CustomerUpdateWebRequest request);
+
     CustomerWebResponse toWebResponse(CustomerResponse response);
 }

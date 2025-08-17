@@ -73,7 +73,7 @@ public class SupplierRestController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete (@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         deleteSupplierUseCase.deleteById(id);
         return ResponseEntity.noContent().build();
     }
