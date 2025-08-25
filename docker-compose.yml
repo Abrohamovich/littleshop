@@ -3,7 +3,7 @@ version: '3.8'
 services:
   backend:
     build: .
-    image: littleshop-backend:latest
+    image: abrohamovich/littleshop-backend:latest
     ports:
       - '8080:8080'
     environment:
@@ -21,7 +21,7 @@ services:
   frontend:
     build:
       context: ${FRONTEND_PATH}
-    image: littleshop-frontend:latest
+    image: abrohamovich/littleshop-frontend:latest
     ports:
       - '80:80'
     depends_on:
