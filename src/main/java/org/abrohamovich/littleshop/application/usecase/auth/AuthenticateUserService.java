@@ -7,6 +7,7 @@ import org.abrohamovich.littleshop.application.port.in.auth.AuthenticateUseCase;
 import org.abrohamovich.littleshop.application.port.out.auth.TokenServicePort;
 import org.abrohamovich.littleshop.application.port.out.persistence.UserRepositoryPort;
 import org.abrohamovich.littleshop.domain.exception.auth.AuthenticationException;
+import org.abrohamovich.littleshop.domain.exception.user.UserNotFoundException;
 import org.abrohamovich.littleshop.domain.model.AuthenticationToken;
 import org.abrohamovich.littleshop.domain.model.User;
 
@@ -20,10 +21,10 @@ public class AuthenticateUserService implements AuthenticateUseCase {
 
     @Override
     public AuthenticationResponse authenticate(LoginCommand command) {
-        User user = userRepositoryPort.findByEmail(command.email())
+        User user = userRepositoryPort.findByEmail(command.getEmail())
                 .orElseThrow(() -> new AuthenticationException("Invalid email"));
 
-        if (!user.checkPassword(command.password())) {
+        if (!user.checkPassword(command.getPassword())) {
             throw new AuthenticationException("Invalid password");
         }
 
