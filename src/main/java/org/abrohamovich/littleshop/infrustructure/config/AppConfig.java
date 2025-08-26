@@ -1,5 +1,7 @@
 package org.abrohamovich.littleshop.infrustructure.config;
 
+import org.abrohamovich.littleshop.application.port.in.auth.AuthenticateUseCase;
+import org.abrohamovich.littleshop.application.port.in.auth.ValidateTokenUseCase;
 import org.abrohamovich.littleshop.application.port.in.category.CreateCategoryUseCase;
 import org.abrohamovich.littleshop.application.port.in.category.DeleteCategoryUseCase;
 import org.abrohamovich.littleshop.application.port.in.category.GetCategoryUseCase;
@@ -21,7 +23,10 @@ import org.abrohamovich.littleshop.application.port.in.user.CreateUserUseCase;
 import org.abrohamovich.littleshop.application.port.in.user.DeleteUserUseCase;
 import org.abrohamovich.littleshop.application.port.in.user.GetUserUseCase;
 import org.abrohamovich.littleshop.application.port.in.user.UpdateUserUseCase;
+import org.abrohamovich.littleshop.application.port.out.auth.TokenServicePort;
 import org.abrohamovich.littleshop.application.port.out.persistence.*;
+import org.abrohamovich.littleshop.application.usecase.auth.AuthenticateUserService;
+import org.abrohamovich.littleshop.application.usecase.auth.ValidateTokenService;
 import org.abrohamovich.littleshop.application.usecase.category.CreateCategoryService;
 import org.abrohamovich.littleshop.application.usecase.category.DeleteCategoryService;
 import org.abrohamovich.littleshop.application.usecase.category.GetCategoryService;
@@ -190,5 +195,17 @@ public class AppConfig {
     public UpdateOrderUseCase updateOrderUseCase(OrderRepositoryPort orderRepositoryPort,
                                                  CustomerRepositoryPort customerRepositoryPort) {
         return new UpdateOrderService(orderRepositoryPort, customerRepositoryPort);
+    }
+
+    @Bean
+    public AuthenticateUseCase authenticateUseCase(UserRepositoryPort userRepositoryPort,
+                                                   TokenServicePort tokenServicePort) {
+        return new AuthenticateUserService(userRepositoryPort, tokenServicePort);
+    }
+
+    @Bean
+    public ValidateTokenUseCase validateTokenUseCase(UserRepositoryPort userRepositoryPort,
+                                                     TokenServicePort tokenServicePort) {
+        return new ValidateTokenService(tokenServicePort, userRepositoryPort);
     }
 }
