@@ -1,9 +1,7 @@
-version: '3.8'
-
 services:
   backend:
     build: .
-    image: littleshop-backend:latest
+    image: abrohamovich/littleshop-backend:latest
     ports:
       - '8080:8080'
     environment:
@@ -13,15 +11,19 @@ services:
       DB_USERNAME: littleshop_user
       DB_PASSWORD: ${DB_PASSWORD}
       DB_SUBPROTOCOL: postgresql
+      ADMIN_FIRSTNAME: ${ADMIN_FIRSTNAME}
+      ADMIN_LASTNAME: ${ADMIN_LASTNAME}
+      ADMIN_EMAIL: ${ADMIN_EMAIL}
+      ADMIN_PHONE: ${ADMIN_PHONE}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+      JWT_TOKEN: ${JWT_TOKEN}
     depends_on:
       - db
     networks:
       - network
 
   frontend:
-    build:
-      context: ${FRONTEND_PATH}
-    image: littleshop-frontend:latest
+    image: abrohamovich/littleshop-frontend:latest
     ports:
       - '80:80'
     depends_on:

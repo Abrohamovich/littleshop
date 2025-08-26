@@ -1,8 +1,8 @@
 package org.abrohamovich.littleshop.adapter.web.offer;
 
 import lombok.*;
-import org.abrohamovich.littleshop.application.dto.category.CategoryResponse;
-import org.abrohamovich.littleshop.application.dto.supplier.SupplierResponse;
+import org.abrohamovich.littleshop.adapter.web.category.CategoryWebResponse;
+import org.abrohamovich.littleshop.adapter.web.supplier.SupplierWebResponse;
 import org.abrohamovich.littleshop.domain.model.OfferType;
 
 import java.time.LocalDateTime;
@@ -18,8 +18,8 @@ public class OfferWebResponse {
     private double price;
     private OfferType type;
     private String description;
-    private CategoryResponse category;
-    private SupplierResponse supplier;
+    private CategoryWebResponse category;
+    private SupplierWebResponse supplier;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

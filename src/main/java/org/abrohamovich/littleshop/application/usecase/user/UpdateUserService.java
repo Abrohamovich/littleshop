@@ -25,7 +25,7 @@ public class UpdateUserService implements UpdateUserUseCase {
         }
         if (!existingUser.getPhone().equals(command.getPhone())) {
             if (userRepositoryPort.findByPhone(command.getPhone()).isPresent()) {
-                throw new DuplicateEntryException("User with phone '" + command.getEmail() + "' already exists.");
+                throw new DuplicateEntryException("User with phone '" + command.getPhone() + "' already exists.");
             }
         }
 

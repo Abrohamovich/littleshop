@@ -20,7 +20,7 @@ public class UpdateSupplierService implements UpdateSupplierUseCase {
 
         if (!existingSupplier.getName().equals(command.getName())) {
             if (supplierRepositoryPort.findByName(command.getName()).isPresent()) {
-                throw new DuplicateEntryException("Supplier with name '" + command.getEmail() + "' already exists.");
+                throw new DuplicateEntryException("Supplier with name '" + command.getName() + "' already exists.");
             }
         }
         if (!existingSupplier.getEmail().equals(command.getEmail())) {
@@ -30,7 +30,7 @@ public class UpdateSupplierService implements UpdateSupplierUseCase {
         }
         if (!existingSupplier.getPhone().equals(command.getPhone())) {
             if (supplierRepositoryPort.findByPhone(command.getPhone()).isPresent()) {
-                throw new DuplicateEntryException("Supplier with phone '" + command.getEmail() + "' already exists.");
+                throw new DuplicateEntryException("Supplier with phone '" + command.getPhone() + "' already exists.");
             }
         }
 

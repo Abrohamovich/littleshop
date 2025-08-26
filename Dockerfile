@@ -17,7 +17,7 @@ USER spring
 
 WORKDIR /app
 
-COPY --from=build /app/target/littleshop-0.0.1.jar ./app.jar
+COPY --from=build /app/target/littleshop-1.jar ./app.jar
 
 EXPOSE 8080
 
